@@ -1,6 +1,6 @@
-![ArchLinux](https://imgur.com/UjnRFbR.png "ArchLinux")
+<p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
 
-# Instalação do ArchLinux com GPT EFI LUKS e Bootctl
+# Minha Instalação ArchLinux com GPT EFI LUKS e Bootctl
 
 ### PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
