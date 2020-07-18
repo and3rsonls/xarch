@@ -506,3 +506,10 @@ $ trizen -S real-vnc-viewer
 # pacman -S dwarffortress asciiportal stone-soup
 
 ```
+
+
+<p align="center"><span style="font-size:1em;" >Copyright © Judd Vinet and Aaron Griffin.</span></p>
+
+<p align="center">The Arch Linux name and logo are recognized trademarks. Some rights reserved.</p>
+
+<p align="center">Linux® is a registered trademark of Linus Torvalds.</p>
