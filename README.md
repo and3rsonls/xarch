@@ -1,7 +1,7 @@
 <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
 
 # Minha Instalação ArchLinux com GPT EFI LUKS e Bootctl
-
+<a id="^top"></a>
 ### PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
 [https://www.archlinux.org/download/](https://www.archlinux.org/download/)
@@ -60,8 +60,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 | sda1 | 512M    | ef00 - efi| /boot    |
 | sda2 | ***M    | 8e00 - lvm| /mnt    |
 
-
-### _CRIPTOGRAFANDO_<a href="#n1" id="n1ref"><sup>1</sup></a> A PARTIÇÃO LINUX LVM
+### _CRIPTOGRAFANDO_<sup>[1](#1)</sup> A PARTIÇÃO LINUX LVM
 
 ```
 # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2
@@ -153,7 +152,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ```
-# passwd
+# passwd root
 	- senha para o usuário root
 ```
 
@@ -191,7 +190,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- recriar o initramfs
 ```
 
-### _BOOTCTL_<a href="#n2" id="n2ref"><sup>2</sup></a>
+### _BOOTCTL_<sup>[2](#2)</sup>
 
 ```
 # booctl --path=/boot$esp install
@@ -340,21 +339,21 @@ _sobreviveu ao primeiro boot?_<br>
 	- ajuste da hora no /etc/adjtime
 ```
 
-### AMBIENTE _DESKTOP_<a href="#n3" id="n3ref"><sup>3</sup></a>
+### AMBIENTE _DESKTOP_<sup>[3](#3)</sup>
 
-**_XORG_**<a href="#n4" id="n4ref"><sup>4</sup></a>
+**_XORG_**<sup>[4](#4)</sup>
 ```
 # pacman -S xorg xf86-input-synaptics xf86-video-ati
 	- o básico para ter um desktop AMD
 ```
 
-**_XFCE4_**<a href="#n5" id="n5ref"><sup>5</sup></a>
+**_XFCE4_**<sup>[5](#5)</sup>
 ```
 # pacman -S xfce4 xfce4-goodies xdg-user-dirs slim archlinux-themes-slim
 	- instalando o xfce como desktop
 ```
 
-**_AUR_**<a href="#n6" id="n6ref"><sup>6</sup></a> **_TRIZEN_**<a href="#n7" id="n7ref"><sup>7</sup></a>
+**_AUR_**<sup>[6](#6)</sup> **_TRIZEN_**<sup>[7](#7)</sup>
 ```
 $ git clone https://aur.archlinux.org/trizen.git
 	- fazer o download do trizen para administração de pacotes AUR
@@ -507,9 +506,39 @@ $ trizen -S real-vnc-viewer
 
 ```
 
+## Leitura complementar<br>
+
+<a id="1" href="#"><sup>1</sup></a>
+[LUKS e LVM](https://williamcanin.me/blog/instalando-archlinux-com-criptografia-luks-e-lvm/)<br>
+[LUKS](https://www.redhat.com/sysadmin/disk-encryption-luks)<br>
+[DOCUMENTAÇÃO](https://github.com/libyal/libluksde/tree/master/documentation)<br>
+[DM-CRYPT](https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption)<br>
+
+<a id="2" href="#"><sup>2</sup></a>
+[SYSTEMBOOT](https://wiki.archlinux.org/index.php/systemd-boot)<br>
+[MANUAL](https://www.freedesktop.org/software/systemd/man/bootctl.html)<br>
+[BOOTCTL](http://man7.org/linux/man-pages/man1/bootctl.1.html)
+
+<a id="3" href="#"><sup>3</sup></a>
+[DESKTOP](https://wiki.archlinux.org/index.php/Desktop_environment_(Portugu%C3%AAs))
+
+<a id="4" href="#"><sup>4</sup></a>
+[XORG](https://wiki.archlinux.org/index.php/Xorg_(Portugu%C3%AAs))
+
+<a id="5" href="#"><sup>5</sup></a>
+[XFCE](https://wiki.archlinux.org/index.php/Xfce_(Portugu%C3%AAs))
+
+<a id="6" href="#"><sup>6</sup></a>
+[AUR](https://wiki.archlinux.org/index.php/Arch_User_Repository_(Portugu%C3%AAs))
+
+<a id="7" href="#"><sup>7</sup></a>
+[TRIZEN](https://github.com/trizen/trizen)
+
+[^top](#top)
 
 <p align="center"><span style="font-size:10px" >Copyright © Judd Vinet and Aaron Griffin.</span></p>
 
 <p align="center"><span style="font-size:10px" >The Arch Linux name and logo are recognized trademarks. Some rights reserved.</span></p>
 
 <p align="center"><span style="font-size:10px" >Linux® is a registered trademark of Linus Torvalds.</span></p>
+
