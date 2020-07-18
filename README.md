@@ -468,7 +468,7 @@ $ trizen -S real-vnc-viewer
 
 **DESENVOLVIMENTO**
 ```
-# pacman -S tk
+# pacman -S tk tcl
 ```
 
 **MONITORES DE SISTEMA**
@@ -508,8 +508,8 @@ $ trizen -S real-vnc-viewer
 ```
 
 
-<p align="center"><span style="font-size:1em;" >Copyright © Judd Vinet and Aaron Griffin.</span></p>
+<p align="center"><span style="font-size:10px" >Copyright © Judd Vinet and Aaron Griffin.</span></p>
 
-<p align="center">The Arch Linux name and logo are recognized trademarks. Some rights reserved.</p>
+<p align="center"><span style="font-size:10px" >The Arch Linux name and logo are recognized trademarks. Some rights reserved.</span></p>
 
-<p align="center">Linux® is a registered trademark of Linus Torvalds.</p>
+<p align="center"><span style="font-size:10px" >Linux® is a registered trademark of Linus Torvalds.</span></p>
