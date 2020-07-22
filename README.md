@@ -367,12 +367,12 @@ $ makepkg -si
 
 **SEGURANÇA**
 ```
-#pacman -S nftables clamav seahorse kkleopatra rkhunter
+#pacman -S nftables clamav seahorse kleopatra rkhunter
 ```
 
 **UTILITÁRIOS**
 ```
-# pacman -S opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils
+# pacman -S opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab
 ```
 
 **VIRTUALIZAÇÃO**
@@ -400,8 +400,9 @@ $ trizen -S tor-browser
 
 **TTF**
 ```
-# pacman -S font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
+# pacman -S xorg-fonts-alias-cyrillic xorg-fonts-alias-misc xorg-fonts-misc xorg-fonts-type1 font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
 
+$ trizen -S ttf-ms-fonts
 ```
 
 **GERENCIADORES DE ARQUIVOS**
@@ -497,7 +498,9 @@ $ trizen -S real-vnc-viewer
 
 **PERNONALIZAÇÃO**
 ```
-# pacman -S numix-themes-archblue capitaine-cursors xcursor-neutral papirus-icon-theme
+# pacman -S capitaine-cursors xcursor-neutral papirus-icon-theme
+
+$ trizen -S numix-themes-archblue
 ```
 
 **GAMES**
@@ -541,4 +544,3 @@ $ trizen -S real-vnc-viewer
 <p align="center"><span style="font-size:10px" >The Arch Linux name and logo are recognized trademarks. Some rights reserved.</span></p>
 
 <p align="center"><span style="font-size:10px" >Linux® is a registered trademark of Linus Torvalds.</span></p>
-
