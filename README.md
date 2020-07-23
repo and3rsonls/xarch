@@ -240,11 +240,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # reboot
 ```
 
-### TUDO CERTO?
-_sobreviveu ao primeiro boot?_<br>
- login<br>
- passwd<br>
-	- login root
+### PRIMEIRO LOGIN
 
 ### CONEXÃO
 
@@ -268,7 +264,7 @@ _sobreviveu ao primeiro boot?_<br>
 | :------------: | :----: | :-----: |
 | NetworkManager | iniciado   | ativado |
 | wpa_supplicant | iniciado  | ativado  |
-| dhcpcd         | parado   | desativado |
+
 
 ```
 # ip a
@@ -362,7 +358,29 @@ $ git clone https://aur.archlinux.org/trizen.git
 ```
 $ cd trizen
 $ makepkg -si
-	- para instalar o Trizen
+	- instalar o Trizen
+```
+
+**SNAP**
+```
+$ git clone https://aur.archlinux.org/snapd.git
+	- download do Snap
+```
+
+```
+$ cd snapd
+$ makepkg -si
+	- instalar o Snap
+```
+
+```
+# systemctl enable --now snapd.socket
+	- ativar soquete de comunicação princiapal do Snap
+```
+
+```
+# ln -s /var/lib/snapd/snap /snap
+	- criar link simbólico entre "/var/lib/snapd/snape /snap"
 ```
 
 **SEGURANÇA**
@@ -372,7 +390,7 @@ $ makepkg -si
 
 **UTILITÁRIOS**
 ```
-# pacman -S opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab
+# pacman -S opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
 ```
 
 **VIRTUALIZAÇÃO**
@@ -507,6 +525,8 @@ $ trizen -S numix-themes-archblue
 ```
 # pacman -S dwarffortress asciiportal stone-soup
 
+$ snap install cncra2yr	
+	- instalar o C&C: Red Alert 2 Yuri's Revenge (WINE)
 ```
 
 ## Leitura complementar<br>
