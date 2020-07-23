@@ -525,7 +525,7 @@ $ trizen -S numix-themes-archblue
 ```
 # pacman -S dwarffortress asciiportal stone-soup
 
-$ snap install cncra2yr	
+$ snap install cncra2yr
 	- instalar o C&C: Red Alert 2 Yuri's Revenge (WINE)
 ```
 
