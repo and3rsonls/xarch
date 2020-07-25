@@ -220,7 +220,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 > initrd /initramfs-linux.img<br>
 > options cryptdevice=UUID=478d1dd9-39ab-4fde-b2b2-f60b6aa0752a:root resume=/dev/mapper/arch-swap root=/dev/mapper/arch-root rw<br>
 > <br>
-> **"resume"** é responsável pela hibernação 
+> 	- **"resume"** é responsável pela hibernação 
 
 ```
 # vim /boot/loader/loader.conf
@@ -280,7 +280,7 @@ Name=wlp*
 [Network]
 DHCP=yes
 [DHCP]
-RouteMetric=512
+RouteMetric=1024
 EOF
 	- arquivo de configuração da rede wireless
 ```
