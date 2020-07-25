@@ -28,8 +28,9 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 #### OU
 ```
-# systemctl start NetworkManager
-	- para conexão wired
+# systemctl status systemd-networkd.service
+# systemctl status systemd-networkd.socket
+	- para verificar conexão wired
 ```
 
 ```
@@ -137,7 +138,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ### INSTALAÇÃO INICIAL
 
 ```
-# pacstrap /mnt base base-devel linux-lts linux-lts-heades linux-firmware lvm2 vim
+# pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware lvm2 vim
 	- instalando o sistema base
 ```
 
@@ -169,7 +170,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # vim /etc/sudoers
-	- adicionar o usuário 'archlinux' ao sudoers
+	- adicionar o usuário 'archer' ao sudoers
 ```
 
 ### INITRAMFS
@@ -245,11 +246,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # reboot
 ```
 
-### PRIMEIRO LOGIN
+## PRIMEIRO LOGIN
 
 ### CONEXÃO
 
-#### conexão cabeada
+#### conexão wired
 
 ```
 # systemctl enable NetworkManager.service
@@ -258,28 +259,39 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ```
+# systemctl enable dhcpcd.service
+# systemctl start dhcpcd.service
+	- habilitar e iniciar o cliente dhcpcd
+```
+
+```
 # ping -c3 archlinux.org
 	- checar conexão
 ```
 
-#### conexão wi-fi
-#### layout usando o wpa_supplicant
-
-| aplicativo     | status | systemd |
-| :------------: | :----: | :-----: |
-| NetworkManager | iniciado   | ativado |
-| wpa_supplicant | iniciado  | ativado  |
-
+#### conexão wireless
 
 ```
-# ip a
-	- verificar o nome da interface
+# systemctl enable NetworkManager.service
+# systemctl start NetworkManager.service
+	- habilitar e iniciar o networkmanager
 ```
 
 ```
 # systemctl enable wpa_supplicant
 # systemctl start wpa_supplicant
 	- habilitar e iniciar o wpa_supplicant
+```
+
+```
+# systemctl enable dhcpcd.service
+# systemctl start dhcpcd.service
+	- habilitar e iniciar o cliente dhcpcd
+```
+
+```
+# ip a
+	- verificar o nome da interface
 ```
 
 ```
@@ -324,6 +336,14 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ```
+# vim /etc/locale.gen
+    - descomentar a localidade para valores monetários regionais, formatos de hora e data, idiossincrasias alfabéticas e outros padrões específicos de localidade.
+
+# locale-gen
+    - gerar localidade
+```
+
+```
 # echo "LANG=pt_BR.UTF-8" > /etc/locale.conf
 # export LANG=pt_BR.UTF-8
 	- idioma do sistema
@@ -337,7 +357,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # hwclock --systohc --utc
-	- ajuste da hora no /etc/adjtime
+	- ajuste o relógio do sistema em '/etc/adjtime'
 ```
 
 ### AMBIENTE _DESKTOP_<sup>[3](#3)</sup>
@@ -530,8 +550,14 @@ $ trizen -S numix-themes-archblue
 ```
 # pacman -S dwarffortress asciiportal stone-soup
 
+$ snap install cncra
+    - instalar C&C: Red Alert
+
+$ snap install cnctsun
+    - instalar C&C: Red Alert Tiberium Sun
+
 $ snap install cncra2yr
-	- instalar o C&C: Red Alert 2 Yuri's Revenge (WINE)
+	- instalar C&C: Red Alert 2 Yuri's Revenge (WINE)
 ```
 
 ## Leitura complementar<br>
