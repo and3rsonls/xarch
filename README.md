@@ -1,4 +1,8 @@
-<p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
+# 
+
+# 
+
+# <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
 
 # Minha Instalação ArchLinux com GPT EFI LUKS e Bootctl
 <a id="^top"></a>
@@ -234,8 +238,54 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ### CONEXÃO DE REDE
+
+#### conexão wired
+
 ```
-# pacman -S iw wireless_tools network-manager-applet dhcpcd networkmanager
+# systemctl enable systemd-networkd.service
+	- habilitar o gerenciador de configurações de rede na inicialização
+```
+
+```
+# systemctl enable systemd-resolved.service
+	- habilitar resolução de nomes de rede na inicialização
+```
+
+```
+# cat > /etc/systemd/network/wired.network << "EOF"
+[Match]
+Name=en*
+Name=eth*
+[Network]
+DHCP=yes
+[DHCP]
+RouteMetric=512
+EOF
+    - arquivo de configuração da rede wired
+```
+
+#### conexão wireless
+
+```
+# systemctl enable systemd-networkd.service
+    	- habilitar o gerenciador de configurações de rede na inicialização
+```
+
+```
+# systemctl enable systemd-resolved.service
+	- habilitar resolução de nomes de rede na inicialização
+```
+
+```
+# cat > /etc/systemd/network/wireless.network << "EOF"
+[Match]
+Name=wlp*
+[Network]
+DHCP=yes
+[DHCP]
+RouteMetric=512
+EOF
+    - arquivo de configuração da rede wireless
 ```
 
 ### REINICIAR SISTEMA
@@ -248,72 +298,10 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ## PRIMEIRO LOGIN
 
-### CONEXÃO
-
-#### conexão wired
-
-```
-# systemctl enable NetworkManager.service
-# systemctl start NetworkManager.service
-	- habilitar e iniciar o networkmanager
-```
-
-```
-# systemctl enable dhcpcd.service
-# systemctl start dhcpcd.service
-	- habilitar e iniciar o cliente dhcpcd
-```
-
 ```
 # ping -c3 archlinux.org
 	- checar conexão
 ```
-
-#### conexão wireless
-
-```
-# systemctl enable NetworkManager.service
-# systemctl start NetworkManager.service
-	- habilitar e iniciar o networkmanager
-```
-
-```
-# systemctl enable wpa_supplicant
-# systemctl start wpa_supplicant
-	- habilitar e iniciar o wpa_supplicant
-```
-
-```
-# systemctl enable dhcpcd.service
-# systemctl start dhcpcd.service
-	- habilitar e iniciar o cliente dhcpcd
-```
-
-```
-# ip a
-	- verificar o nome da interface
-```
-
-```
-# wpa_passphrase ESSID PASSWD > /etc/wap_supplicant/wpa_supplicant-wlp3s0.conf
-	- gerar o arquivo de configuração da interface wireless
-```
-
-```
-# wpa_supplicant -B -iwlp3s0 -c/etc/wap_supplicant/wpa_supplicant-wlp3s0.conf
-	- habilitar a configuração do "wpa_supplicant"
-```
-
-```
-# dhcpcd wlp3s0
-	- concluir a conexão usando o dhcpcd
-```
-
-```
-# ping -c3 archlinux.org
-	- checar conexão
-```
-
 
 ### MAIS CONFIGURAÇÕES
 
@@ -329,6 +317,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 > .<br>
 > .<br>
 > .
+
+```
+# pacman -Syu
+    - atualizar o archlinux e o 'multilib'
+```
 
 ```
 # echo "archerhost" > /etc/hostname
