@@ -288,6 +288,22 @@ EOF
 	- arquivo de configuração da rede wireless
 ```
 
+### CONFIGURAÇÃO DE REDE
+
+```
+# echo "archerhost" > /etc/hostname
+	- configuração do hostname
+```
+
+```
+# cat > /etc/hosts << "EOF"
+127.0.0.1	localhost
+1::		localhost
+127.0.3.1	archerhost.local	archerhost
+EOF
+	- configuração do hosts 
+```
+
 ### REINICIAR SISTEMA
 
 ```
@@ -321,11 +337,6 @@ EOF
 ```
 # pacman -Syu
     - atualizar o archlinux e o 'multilib'
-```
-
-```
-# echo "archerhost" > /etc/hostname
-	- hostname
 ```
 
 ```
