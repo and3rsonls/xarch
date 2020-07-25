@@ -309,7 +309,7 @@ EOF
 # reboot
 ```
 
-## PRIMEIRO LOGIN
+### PRIMEIRO LOGIN
 
 ```
 # ping -c3 archlinux.org
