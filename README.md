@@ -261,7 +261,7 @@ DHCP=yes
 [DHCP]
 RouteMetric=512
 EOF
-    - arquivo de configuração da rede wired
+	- arquivo de configuração da rede wired
 ```
 
 #### conexão wireless
@@ -285,7 +285,7 @@ DHCP=yes
 [DHCP]
 RouteMetric=512
 EOF
-    - arquivo de configuração da rede wireless
+	- arquivo de configuração da rede wireless
 ```
 
 ### REINICIAR SISTEMA
@@ -398,7 +398,7 @@ $ makepkg -si
 
 ```
 # ln -s /var/lib/snapd/snap /snap
-	- criar link simbólico entre "/var/lib/snapd/snape /snap"
+	- criar link simbólico entre '/var/lib/snapd/snape /snap'
 ```
 
 **SEGURANÇA**
