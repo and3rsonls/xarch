@@ -26,6 +26,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # wifi-menu
 	- para conexão wireless
 ```
+#### OU
+```
+# systemctl start NetworkManager
+	- para conexão wired
+```
 
 ```
 # ping -c3 ping archlinux.org
@@ -39,7 +44,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # modprobe -a dm-mod dm-crypt
-	- carregar módulos
+	- carregar módulos para criptografia
 ```
 
 ### CRIANDO AS PARTIÇÕES
