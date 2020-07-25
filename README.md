@@ -73,7 +73,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2
-	- criptografando a partição "/dev/sda2"
+	- criptografando a partição '/dev/sda2'
 ```
 
 ```
@@ -377,7 +377,7 @@ EOF
 	- instalando o xfce como desktop
 ```
 
-**_AUR_**<sup>[6](#6)</sup> **_TRIZEN_**<sup>[7](#7)</sup>
+###_AUR_<sup>[6](#6)</sup> _TRIZEN_<sup>[7](#7)</sup>
 ```
 $ git clone https://aur.archlinux.org/trizen.git
 	- fazer o download do trizen para administração de pacotes AUR
@@ -389,7 +389,7 @@ $ makepkg -si
 	- instalar o Trizen
 ```
 
-**SNAP**
+###SNAP
 ```
 $ git clone https://aur.archlinux.org/snapd.git
 	- download do Snap
@@ -411,27 +411,27 @@ $ makepkg -si
 	- criar link simbólico entre '/var/lib/snapd/snape /snap'
 ```
 
-**SEGURANÇA**
+###SEGURANÇA
 ```
 #pacman -S nftables clamav seahorse kleopatra rkhunter
 ```
 
-**UTILITÁRIOS**
+###UTILITÁRIOS
 ```
 # pacman -S opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
 ```
 
-**VIRTUALIZAÇÃO**
+###VIRTUALIZAÇÃO
 ```
-pacman -S wine
+# pacman -S wine
 ```
 
-**COMPARTILHAMENTO DE ARQUIVOS**
+###COMPARTILHAMENTO DE ARQUIVOS
 ```
 # pacman -S transmission-gtk filezilla netcat wget git
 ```
 
-**NAVEGADORES**
+###NAVEGADORES
 ```
 # pacman -S chromium firefox-i18n-pt-br links lynx
 
@@ -439,117 +439,115 @@ $ trizen -S tor-browser
     - gerenciador de arquivos AUR
 ```
 
-**EDITORES DE TEXTO**
+###EDITORES DE TEXTO
 ```
 # pacman -S leafpad mousepad vim
 ```
 
-**TTF**
+###TTF
 ```
 # pacman -S xorg-fonts-alias-cyrillic xorg-fonts-alias-misc xorg-fonts-misc xorg-fonts-type1 font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
 
 $ trizen -S ttf-ms-fonts
 ```
 
-**GERENCIADORES DE ARQUIVOS**
+###GERENCIADORES DE ARQUIVOS
 ```
 # pacman -S trash-cli catfish rclone rsync meld 
 ```
 
-**ARQUIVAMENTO**
+###ARQUIVAMENTO
 ```
 # pacman -S xarchiver-gtk2 p7zip unzip unrar zip
 ```
 
-**MULTIMÍDIA**
+###MULTIMÍDIA
 ```
 # pacman -S ffmpeg schroedinger libtheora libvorbis libmpeg2 xine-lib libde265 xvidcore gst-libav inkscape wavpack jasper a52dec libmad libvpx geeqie libdca dav1d libdv faad2 x265 x264 faac aom flac lame libxv opus gimp
 
 $ trizen -S codecs64
-    - gerenciador de pacotes AUR
 ```
 
-**AUDIO**
+###AUDIO
 ```
 # pacman -S pulseaudio-alsa pavucontrol alsa-utils alsa-oss alsa-lib
 ```
 
-**VÍDEO**
+###VÍDEO
 ```
 # pacman -S vlc
 ```
 
-**OFFICE**
+###OFFICE
 ```
 # pacman -S libreoffice-still libreoffice-still-pt-br galculator-gtk2 retext xsane cups
 ```
 
-**CLIENTES EMAIL**
+###CLIENTES EMAIL
 ```
 # pacman -S claws-mail mutt
 ```
 
-**LEITORES**
+###LEITORES
 ```
 # pacman -S calibre mcomix xpdf
 ```
 
-**WEBCAM**
+###WEBCAM
 ```
 # pacman -S cheese
 ```
 
-**IRC**
+###IRC
 ```
 # pacman -S hexchat
 ```
 
-**ÁREA DE TRABALHO REMOTA**
+###ÁREA DE TRABALHO REMOTA
 ```
 # pacman -S x11vnc
 
 $ trizen -S real-vnc-viewer
-    - gerenciador de pacotes AUR
 ```
 
-**DESENVOLVIMENTO**
+###DESENVOLVIMENTO
 ```
 # pacman -S tk tcl
 ```
 
-**MONITORES DE SISTEMA**
+###MONITORES DE SISTEMA
 ```
 # pacman -S conky
 ```
 
-**INFORMAÇÕES DO SISTEMA**
+###INFORMAÇÕES DO SISTEMA
 ```
 # pacman -S hwdetect neofetch hwinfo htop
 ```
 
-**LOG**
+###LOG
 ```
 # pacman -S pacmanlogviewer
 ```
 
-**LIMPEZA**
+###LIMPEZA
 ```
 # pacman -S bleachbit
 ```
 
-**AGENDADORES**
+###AGENDADORES
 ```
 # pacman -S cronie
 ```
 
-**PERNONALIZAÇÃO**
+###PERSONALIZAÇÃO
 ```
 # pacman -S capitaine-cursors xcursor-neutral papirus-icon-theme
 
 $ trizen -S numix-themes-archblue
 ```
 
-**GAMES**
+###GAMES
 ```
 # pacman -S dwarffortress asciiportal stone-soup
 
@@ -561,9 +559,12 @@ $ snap install cnctsun
 
 $ snap install cncra2yr
 	- instalar C&C: Red Alert 2 Yuri's Revenge (WINE)
+
+$ snap install the-powder-toy
+    - instalar The Powder Toy
 ```
 
-## Leitura complementar<br>
+###LEITURA COMPLEMENTAR<br>
 
 <a id="1" href="#"><sup>1</sup></a>
 [LUKS e LVM](https://williamcanin.me/blog/instalando-archlinux-com-criptografia-luks-e-lvm/)<br>
