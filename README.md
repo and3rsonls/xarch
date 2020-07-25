@@ -33,7 +33,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 #### OU
 ```
 # systemctl status systemd-networkd.service
-# systemctl status systemd-networkd.socket
 	- para verificar conexão wired
 ```
 
@@ -240,7 +239,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ### CONEXÃO DE REDE
 
 #### conexão wired
-
 ```
 # systemctl enable systemd-networkd.service
 	- habilitar o gerenciador de configurações de rede na inicialização
@@ -265,7 +263,6 @@ EOF
 ```
 
 #### conexão wireless
-
 ```
 # systemctl enable systemd-networkd.service
     	- habilitar o gerenciador de configurações de rede na inicialização
@@ -319,7 +316,7 @@ EOF
 	- checar conexão
 ```
 
-### MAIS CONFIGURAÇÕES
+### PACMAN.CONF
 
 ```
 # vim /etc/pacman.conf
@@ -338,6 +335,8 @@ EOF
 # pacman -Syu
     - atualizar o archlinux e o 'multilib'
 ```
+
+### LOCALIZAÇÃO
 
 ```
 # vim /etc/locale.gen
