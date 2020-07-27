@@ -118,19 +118,18 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ```
-# mkswap /dev/mapper/arch-swap
-# swapon /dev/mapper/arch-swap
+# mkdir /mnt/{boot,home}
+	- criando as partições boot e home em '/mnt'
+```
+
+```
+# mkswap /dev/mapper/arch-swap && swapon /dev/mapper/arch-swap
 	- formatando e montando a partição swap
 ```
 
 ```
-# mkfs.fat -F32 /dev/sda1
+# mkfs.vfat -F32 -I /dev/sda1
 	- formatado a partição boot
-```
-
-```
-# mkdir /mnt/{boot,home}
-	- criando as partições boot e home em '/mnt'
 ```
 
 ```
@@ -293,13 +292,13 @@ EOF
 ```
 
 ```
-# cat > /etc/hosts << "EOF"
-127.0.0.1	localhost
-1::		localhost
-127.0.3.1	archerhost.local	archerhost
-EOF
-	- configuração do hosts 
+# vim /etc/hosts
+	- criar configuração do hosts 
 ```
+> 127.0.0.1     localhost<br>
+> 1::           localhost<br>
+> 127.0.3.1     archerhost.local archerhost<br>
+    - adicionar ao arquivo '/etc/hosts'
 
 ### REINICIAR SISTEMA
 
@@ -413,7 +412,7 @@ $ makepkg -si
 
 ###SEGURANÇA
 ```
-#pacman -S nftables clamav seahorse kleopatra rkhunter
+# pacman -S nftables clamav seahorse kleopatra rkhunter
 ```
 
 ###UTILITÁRIOS
@@ -446,7 +445,7 @@ $ trizen -S tor-browser
 
 ###TTF
 ```
-# pacman -S xorg-fonts-alias-cyrillic xorg-fonts-alias-misc xorg-fonts-misc xorg-fonts-type1 font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
+# pacman -S xorg-fonts-alias-cyrillic xorg-fonts-alias-misc xorg-fonts-misc xorg-fonts-type1 font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode gnu-free-fonts ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
 
 $ trizen -S ttf-ms-fonts
 ```
@@ -461,9 +460,9 @@ $ trizen -S ttf-ms-fonts
 # pacman -S xarchiver-gtk2 p7zip unzip unrar zip
 ```
 
-###MULTIMÍDIA
+###MULTIMÍDIA E CODECS
 ```
-# pacman -S ffmpeg schroedinger libtheora libvorbis libmpeg2 xine-lib libde265 xvidcore gst-libav inkscape wavpack jasper a52dec libmad libvpx geeqie libdca dav1d libdv faad2 x265 x264 faac aom flac lame libxv opus gimp
+# pacman -S libdc1394 libdvdcss libgme vcdimager smbclient libnfs protobuf libmicrodns lua-socket live-media libdvdread libdvdnav zvbi libkate libtiger chromaprint lirc projectm libgoom2 ffmpeg schroedinger libtheora libvorbis libmpeg2 xine-lib libde265 xvidcore gst-libav inkscape wavpack jasper a52dec libmad libvpx geeqie libdca dav1d libdv faad2 x265 x264 faac aom flac lame libxv opus gimp
 
 $ trizen -S codecs64
 ```
