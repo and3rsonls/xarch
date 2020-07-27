@@ -43,7 +43,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # loadkeys br-abnt2
-	- teclado
+	- layout do teclado
 ```
 
 ```
@@ -235,55 +235,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- atualizar os arquivos de boot
 ```
 
-### CONEXÃO DE REDE
-
-#### conexão wired
-```
-# systemctl enable systemd-networkd.service
-	- habilitar o gerenciador de configurações de rede na inicialização
-```
-
-```
-# systemctl enable systemd-resolved.service
-	- habilitar resolução de nomes de rede na inicialização
-```
-
-```
-# cat > /etc/systemd/network/wired.network << "EOF"
-[Match]
-Name=en*
-Name=eth*
-[Network]
-DHCP=yes
-[DHCP]
-RouteMetric=512
-EOF
-	- arquivo de configuração da rede wired
-```
-
-#### conexão wireless
-```
-# systemctl enable systemd-networkd.service
-    	- habilitar o gerenciador de configurações de rede na inicialização
-```
-
-```
-# systemctl enable systemd-resolved.service
-	- habilitar resolução de nomes de rede na inicialização
-```
-
-```
-# cat > /etc/systemd/network/wireless.network << "EOF"
-[Match]
-Name=wlp*
-[Network]
-DHCP=yes
-[DHCP]
-RouteMetric=1024
-EOF
-	- arquivo de configuração da rede wireless
-```
-
 ### CONFIGURAÇÃO DE REDE
 
 ```
@@ -299,6 +250,70 @@ EOF
 > 1::           localhost<br>
 > 127.0.3.1     archerhost.local archerhost<br>
     - adicionar ao arquivo '/etc/hosts'
+
+### CONEXÃO DE REDE
+
+#### conexão wired
+```
+# cat > /etc/systemd/network/wired.network << "EOF"
+[Match]
+Name=en*
+Name=eth*
+[Network]
+DHCP=yes
+[DHCP]
+RouteMetric=10
+EOF
+	- arquivo de configuração da rede wired
+```
+
+```
+# systemctl enable systemd-networkd.service
+	- habilitar o gerenciador de configurações de rede na inicialização
+```
+
+```
+# systemctl enable systemd-resolved.service
+	- habilitar resolução de nomes de rede na inicialização
+```
+
+#### conexão wireless
+```
+# cat > /etc/systemd/network/wireless.network << "EOF"
+[Match]
+Name=wlp*
+[Network]
+DHCP=yes
+[DHCP]
+RouteMetric=20
+EOF
+	- arquivo de configuração da rede wireless
+```
+
+```
+# systemctl enable systemd-networkd.service
+    	- habilitar o gerenciador de configurações de rede na inicialização
+```
+
+```
+# systemctl enable systemd-resolved.service
+	- habilitar resolução de nomes de rede na inicialização
+```
+
+```
+# wpa_passphrase ESSID PASSWD > /etc/wap_supplicant/wlp3s0.conf
+	- gerar o arquivo de configuração da interface wireless
+```
+
+```
+systemctl start wpa_supplicant@wlp3s0.service
+    - inicializar o 'wpa_supplicant'
+```
+
+```
+systemctl enable wpa_supplicant@wlp3s0.service
+    - ativar o 'wpa_supplicant' na inicialização
+```
 
 ### REINICIAR SISTEMA
 
