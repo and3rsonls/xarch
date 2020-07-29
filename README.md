@@ -556,14 +556,14 @@ $ trizen -S real-vnc-viewer
 
 ###PERSONALIZAÇÃO
 ```
-# pacman -S capitaine-cursors xcursor-neutral papirus-icon-theme
+# pacman -S archlinux-wallpaper capitaine-cursors xcursor-neutral papirus-icon-theme
 
 $ trizen -S numix-themes-archblue
 ```
 
 ###GAMES
 ```
-# pacman -S dwarffortress asciiportal stone-soup
+# pacman -S dwarffortress asciiportal stone-soup 0ad 0ad-data
 
 $ snap install cncra
     - instalar C&C: Red Alert
