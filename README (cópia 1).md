@@ -43,7 +43,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # loadkeys br-abnt2
-	- layout do teclado
+	- teclado
 ```
 
 ```
@@ -118,18 +118,19 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ```
-# mkdir /mnt/{boot,home}
-	- criando as partições boot e home em '/mnt'
-```
-
-```
-# mkswap /dev/mapper/arch-swap && swapon /dev/mapper/arch-swap
+# mkswap /dev/mapper/arch-swap
+# swapon /dev/mapper/arch-swap
 	- formatando e montando a partição swap
 ```
 
 ```
-# mkfs.vfat -F32 -I /dev/sda1
+# mkfs.fat -F32 /dev/sda1
 	- formatado a partição boot
+```
+
+```
+# mkdir /mnt/{boot,home}
+	- criando as partições boot e home em '/mnt'
 ```
 
 ```
@@ -219,7 +220,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 > initrd /initramfs-linux.img<br>
 > options cryptdevice=UUID=478d1dd9-39ab-4fde-b2b2-f60b6aa0752a:root resume=/dev/mapper/arch-swap root=/dev/mapper/arch-root rw<br>
 > <br>
-> 	- **"resume"** é responsável pela hibernação 
+> **"resume"** é responsável pela hibernação 
 
 ```
 # vim /boot/loader/loader.conf
@@ -235,38 +236,9 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- atualizar os arquivos de boot
 ```
 
-### CONFIGURAÇÃO DE REDE
-
-```
-# echo "archerhost" > /etc/hostname
-	- configuração do hostname
-```
-
-```
-# vim /etc/hosts
-	- criar configuração do hosts 
-```
-> 127.0.0.1     localhost<br>
-> 1::           localhost<br>
-> 127.0.3.1     archerhost.local archerhost<br>
-    - adicionar ao arquivo '/etc/hosts'
-
 ### CONEXÃO DE REDE
 
 #### conexão wired
-```
-# cat > /etc/systemd/network/wired.network << "EOF"
-[Match]
-Name=en*
-Name=eth*
-[Network]
-DHCP=yes
-[DHCP]
-RouteMetric=10
-EOF
-	- arquivo de configuração da rede wired
-```
-
 ```
 # systemctl enable systemd-networkd.service
 	- habilitar o gerenciador de configurações de rede na inicialização
@@ -277,19 +249,20 @@ EOF
 	- habilitar resolução de nomes de rede na inicialização
 ```
 
-#### conexão wireless
 ```
-# cat > /etc/systemd/network/wireless.network << "EOF"
+# cat > /etc/systemd/network/wired.network << "EOF"
 [Match]
-Name=wlp*
+Name=en*
+Name=eth*
 [Network]
 DHCP=yes
 [DHCP]
-RouteMetric=20
+RouteMetric=512
 EOF
-	- arquivo de configuração da rede wireless
+	- arquivo de configuração da rede wired
 ```
 
+#### conexão wireless
 ```
 # systemctl enable systemd-networkd.service
     	- habilitar o gerenciador de configurações de rede na inicialização
@@ -301,18 +274,31 @@ EOF
 ```
 
 ```
-# wpa_passphrase ESSID PASSWD > /etc/wap_supplicant/wlp3s0.conf
-	- gerar o arquivo de configuração da interface wireless
+# cat > /etc/systemd/network/wireless.network << "EOF"
+[Match]
+Name=wlp*
+[Network]
+DHCP=yes
+[DHCP]
+RouteMetric=512
+EOF
+	- arquivo de configuração da rede wireless
+```
+
+### CONFIGURAÇÃO DE REDE
+
+```
+# echo "archerhost" > /etc/hostname
+	- configuração do hostname
 ```
 
 ```
-systemctl start wpa_supplicant@wlp3s0.service
-    - inicializar o 'wpa_supplicant'
-```
-
-```
-systemctl enable wpa_supplicant@wlp3s0.service
-    - ativar o 'wpa_supplicant' na inicialização
+# cat > /etc/hosts << "EOF"
+127.0.0.1	localhost
+1::		localhost
+127.0.3.1	archerhost.local	archerhost
+EOF
+	- configuração do hosts 
 ```
 
 ### REINICIAR SISTEMA
@@ -427,12 +413,12 @@ $ makepkg -si
 
 ###SEGURANÇA
 ```
-# pacman -S nftables clamav seahorse kleopatra rkhunter
+#pacman -S nftables clamav seahorse kleopatra rkhunter
 ```
 
 ###UTILITÁRIOS
 ```
-# pacman -S nmap lsof usbctl opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
+# pacman -S opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
 ```
 
 ###VIRTUALIZAÇÃO
@@ -460,7 +446,7 @@ $ trizen -S tor-browser
 
 ###TTF
 ```
-# pacman -S xorg-fonts-alias-cyrillic xorg-fonts-alias-misc xorg-fonts-misc xorg-fonts-type1 font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode gnu-free-fonts ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
+# pacman -S xorg-fonts-alias-cyrillic xorg-fonts-alias-misc xorg-fonts-misc xorg-fonts-type1 font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
 
 $ trizen -S ttf-ms-fonts
 ```
@@ -475,9 +461,9 @@ $ trizen -S ttf-ms-fonts
 # pacman -S xarchiver-gtk2 p7zip unzip unrar zip
 ```
 
-###MULTIMÍDIA E CODECS
+###MULTIMÍDIA
 ```
-# pacman -S libdc1394 libdvdcss libgme vcdimager smbclient libnfs protobuf libmicrodns lua-socket live-media libdvdread libdvdnav zvbi libkate libtiger chromaprint lirc projectm libgoom2 ffmpeg schroedinger libtheora libvorbis libmpeg2 xine-lib libde265 xvidcore gst-libav inkscape wavpack jasper a52dec libmad libvpx geeqie libdca dav1d libdv faad2 x265 x264 faac aom flac lame libxv opus gimp
+# pacman -S ffmpeg schroedinger libtheora libvorbis libmpeg2 xine-lib libde265 xvidcore gst-libav inkscape wavpack jasper a52dec libmad libvpx geeqie libdca dav1d libdv faad2 x265 x264 faac aom flac lame libxv opus gimp
 
 $ trizen -S codecs64
 ```
@@ -556,14 +542,14 @@ $ trizen -S real-vnc-viewer
 
 ###PERSONALIZAÇÃO
 ```
-# pacman -S archlinux-wallpaper capitaine-cursors xcursor-neutral papirus-icon-theme
+# pacman -S capitaine-cursors xcursor-neutral papirus-icon-theme
 
 $ trizen -S numix-themes-archblue
 ```
 
 ###GAMES
 ```
-# pacman -S dwarffortress asciiportal stone-soup 0ad 0ad-data
+# pacman -S dwarffortress asciiportal stone-soup
 
 $ snap install cncra
     - instalar C&C: Red Alert
