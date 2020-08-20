@@ -27,7 +27,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ### INICIALIZANDO A LIVE ISO
 ```
-# wifi-menu
+# iwctl
+[iwd]# help
+[iwd]# device list
+[iwd]# station wlan0 get-networks
+[iwd]# station wlan0 connect SSID
 	- para conexão wireless
 ```
 #### OU
