@@ -279,17 +279,17 @@ $ nmcli connection show
 	- todas as redes conectadas
 ```
 ```
-# ping archlinux.org
+$ ping archlinux.org
 	- checar conexão
 ```
 
 #### conexão cabeada
 ```
-# systemctl status NetworkManager.service
+$ systemctl status NetworkManager.service
     - verificar conexão
 ```
 ```
-# ping archlinux.org
+$ ping archlinux.org
 	- checar conexão
 ```
 
@@ -298,15 +298,8 @@ $ nmcli connection show
 # vim /etc/pacman.conf
 	- descomentar para adicionar o repositório multilib
 ```
-> .<br>
-> .<br>
-> .<br>
 > [multilib]<br>
 > Include = /etc/pacman.d/mirrorlist<br>
-> .<br>
-> .<br>
-> .
-
 ```
 # pacman -Syu
     - atualizar o archlinux e o 'multilib'
@@ -548,7 +541,7 @@ $ snap install the-powder-toy
 <a id="2" href="#"><sup>2</sup></a>
 [SYSTEMBOOT](https://wiki.archlinux.org/index.php/systemd-boot)<br>
 [MANUAL](https://www.freedesktop.org/software/systemd/man/bootctl.html)<br>
-[BOOTCTL](http://man7.org/linux/man-pages/man1/bootctl.1.html)
+[GRUB](https://www.gnu.org/software/grub/)
 
 <a id="3" href="#"><sup>3</sup></a>
 [DESKTOP](https://wiki.archlinux.org/index.php/Desktop_environment_(Portugu%C3%AAs))
