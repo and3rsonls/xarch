@@ -1,8 +1,7 @@
-# 
 
 # <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
 
-# Minha Particular Instalação ArchLinux com LUKS e Grub
+# Minha Particular Instalação ArchLinux com LVM e Grub
 <a id="^top"></a>
 ### PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
@@ -234,9 +233,8 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # vim /etc/mkinitcpio.conf
 	- procurar e editar as seguintes linhas seguindo o exemplo abaixo
 ```
-> HOOKS=(...modconf block ***keymap encrypt lvm2 resume*** filesystems ...)<br>
+> HOOKS=(...modconf block ***keymap keyboard encrypt lvm2 resume*** filesystems ...)<br>
 
-```
 # mkinitcpio -p linux-lts
 	- recriar o initramfs
 ```
@@ -246,7 +244,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # vim /etc/default/grub
 	- procurar e adicionar a linha abaixo
 ```
-> GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home  loglevel=3"
+> GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home resume=/dev/mapper/arch-swap loglevel=3"
 
 ```
 # grub-install /dev/sda
@@ -384,7 +382,7 @@ $ makepkg -si
 
 ### UTILITÁRIOS
 ```
-# pacman -S nmap lsof usbctl opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
+# pacman -S nmap lsof opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
 ```
 
 ### VIRTUALIZAÇÃO
@@ -518,7 +516,7 @@ $ trizen -S numix-themes-archblue
 # pacman -S dwarffortress asciiportal stone-soup 0ad 0ad-data
 
 $ snap install cncra
-    	- instalar C&C: Red Alert
+    - instalar C&C: Red Alert
 
 $ snap install cnctsun
 	- instalar C&C: Red Alert Tiberium Sun
@@ -541,7 +539,7 @@ $ snap install the-powder-toy
 <a id="2" href="#"><sup>2</sup></a>
 [SYSTEMBOOT](https://wiki.archlinux.org/index.php/systemd-boot)<br>
 [MANUAL](https://www.freedesktop.org/software/systemd/man/bootctl.html)<br>
-[GRUB](https://www.gnu.org/software/grub/)
+[GRUB](https://wiki.archlinux.org/index.php/GRUB_(Portugu%C3%AAs))
 
 <a id="3" href="#"><sup>3</sup></a>
 [DESKTOP](https://wiki.archlinux.org/index.php/Desktop_environment_(Portugu%C3%AAs))
