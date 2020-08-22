@@ -1,7 +1,7 @@
 
 # <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
-
-# Minha Instalação de uso pessoal do ArchLinux com LVM e Grub
+:orange_book:
+## Minha Instalação de uso pessoal do ArchLinux com LVM e Grub
 <a id="^top"></a>
 ## PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
@@ -461,6 +461,7 @@ $ snap install cncra2yr
 $ snap install the-powder-toy
   	- instalar The Powder Toy
 ~~~
+:metal:
 
 ### LEITURA COMPLEMENTAR<br>
 
