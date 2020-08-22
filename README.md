@@ -4,7 +4,7 @@
 
 # <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
 
-# Minha Instalação ArchLinux com GPT EFI LUKS e Bootctl
+# Minha Particular Instalação ArchLinux com BiosMBR, LUKS e Grub
 <a id="^top"></a>
 ### PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
@@ -12,7 +12,7 @@
 
 ```
 $ gpg --keyserver-options auto-key-retrieve --verify archlinux-versao-x86_64.iso.sig
-    - verificando assinatura da ISO
+    - verificar assinatura da ISO
 ```
 #### OU
 ```
@@ -22,10 +22,19 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # dd bs=4M if=archlinux-versão-x86_64.iso of=/dev/sdX status=progress && sync
-    - gravando a iso em um pendrive
+    - gravar a iso em um pendrive
 ```
 
-### INICIALIZANDO A LIVE ISO
+## INICIALIZAR A LIVE ISO
+
+
+```
+# loadkeys br-abnt2
+	- layout do teclado
+```
+## CONEXÃO
+
+#### conexão wireless
 ```
 # iwctl
 [iwd]# help
@@ -34,60 +43,61 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 [iwd]# station wlan0 connect SSID
 	- para conexão wireless
 ```
-#### OU
+
+```
+# ping archlinux.org
+	- testar a conexão
+```
+
+#### conexão cabeada
 ```
 # systemctl status systemd-networkd.service
 	- para verificar conexão wired
 ```
 
 ```
-# ping -c3 ping archlinux.org
-	- testando a conexão
-```
-
-```
-# loadkeys br-abnt2
-	- layout do teclado
-```
-
-```
-# modprobe -a dm-mod dm-crypt
-	- carregar módulos para criptografia
+# ping archlinux.org
+	- testar a conexão
 ```
 
 ### CRIANDO AS PARTIÇÕES
 
 ```
 # lsblk
-	- identificando o disco
+	- identificar o disco
 ```
 
 ```
-# gdisk /dev/sda
-	- criar uma nova tabela de partição vazia tipo GPT
+# cfdisk /dev/sda
+	- criar uma nova tabela de partições vazia tipo DOS
 ```
 ####  layout das partições necessárias
 
 | nome | tamanho | tipo | montagem |
 | :--: | :-----: | :--: | :------: |
-| sda1 | 512M    | ef00 - efi| /boot    |
-| sda2 | ***M    | 8e00 - lvm| /mnt    |
+| sda1 | 512MiB  | linux | /boot    |
+| sda2 | *GiB    | linux | /home    |
 
 ### _CRIPTOGRAFANDO_<sup>[1](#1)</sup> A PARTIÇÃO LINUX LVM
 
 ```
+# modprobe -a dm-mod dm-crypt
+	- carregar módulos para criptografia
+```
+
+```
 # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2
-	- criptografando a partição '/dev/sda2'
+	- criptografar a partição '/dev/sda2'
 ```
 
 ```
 # cryptsetup luksOpen /dev/sda2 aux
-	- entrando na partição criptografada
+	- entrar na partição criptografada
 ```
 
 ```
 # pvcreate /dev/mapper/aux
-	- criando o physical volume (pv)
+	- criar o physical volume (pv)
 ```
 
 ```
@@ -97,14 +107,14 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ```
 # vgcreate arch /dev/mapper/aux
-	- criando o volume group (vg)
+	- criar o volume group (vg)
 	- vgcreate <nome do grupo> <caminho do physical volume>
 ```
 
 ```
 # lvcreate -L 3g arch -n swap
-# lvcreate -l 100%FREE arch -n root
-	- criando as logical volume (lv)
+# lvcreate -l 100%FREE arch -n home
+	- criar as logical volume (lv)
 	- lvcreate -L <tamanho |M|G> <nome do grupo> -n <nome do logical volume>
 ```
 
@@ -116,51 +126,51 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ### FORMATANDO E MONTADO AS PARTIÇÕES
 
 ```
-# mkfs.ext4 /dev/mapper/arch-root
-# mount /dev/mapper/arch-root /mnt
-	- formatando e montando a partição root
+# mkfs.ext4 /dev/mapper/arch-home
+# mount /dev/mapper/arch-home /mnt
+	- formatar e montar a partição home
 ```
 
 ```
 # mkdir /mnt/{boot,home}
-	- criando as partições boot e home em '/mnt'
+	- criar os diretórios boot e home em '/mnt'
 ```
 
 ```
 # mkswap /dev/mapper/arch-swap && swapon /dev/mapper/arch-swap
-	- formatando e montando a partição swap
+	- formatar e montar a partição swap
 ```
 
 ```
-# mkfs.vfat -F32 -I /dev/sda1
-	- formatado a partição boot
+# mkfs.ext4 /dev/sda1
+	- formatar a partição boot
 ```
 
 ```
 # mount /dev/sda1 /mnt/boot
-	- montando a partição boot
+	- montar a partição boot
 ```
 
 ### INSTALAÇÃO INICIAL
 
 ```
-# pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware lvm2 vim
-	- instalando o sistema base
+# pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware grub lvm2 vim
+	- instalar o sistema base
 ```
 
 ```
 # genfstab -U /mnt > /mnt/etc/fstab
-	- gerando a tabela de partições
+	- gerar a tabela de partições
 ```
 
 ```
 # arch-chroot /mnt
-	- entrando no ambiente chroot
+	- entrar no ambiente chroot
 ```
 
 ```
 # echo "KEYMAP=br-abnt2" > /etc/vconsole.conf
-	- configurando o teclado
+	- configurar o teclado
 ```
 
 ```
@@ -177,6 +187,60 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 # vim /etc/sudoers
 	- adicionar o usuário 'archer' ao sudoers
+```
+
+### CONFIGURAÇÃO DE REDE
+
+```
+# echo "archerhost" > /etc/hostname
+	- configuração do hostname
+```
+
+```
+# vim /etc/hosts
+	- criar configuração do hosts 
+```
+> 127.0.0.1     localhost<br>
+> 1::           localhost<br>
+> 127.0.3.1     archerhost.local archerhost<br>
+    - adicionar ao arquivo '/etc/hosts'
+
+### CONEXÃO DE REDE
+```
+# pacman -S networkmanager wireless_tools nm-connection-editor network-manager-applet dhcpcd wpa_supplicant net-tools
+	- aplicativos necessários para conexão cabeada ou wi-fi
+```
+
+#### conexão wireless
+```
+# systemctl disable dhcpcd.service 
+	- pode causar instabilidade na conexão wi-fi
+```
+
+```
+# systemctl enable NetworkManager.service
+	- habilitar o serviço na inicialização
+```
+
+```
+# systemctl enable wpa_supplicant.service
+	- habilitar o serviço na inicialização
+```
+
+#### conexão cabeada
+```
+# systemctl enable dhcpcd.service 
+	- habilitar o serviço na inicialização
+```
+
+```
+# systemctl enable NetworkManager.service
+	- habilitar o serviço na inicialização
+```
+
+```
+# systemctl disable wpa_supplicant.service
+	- desabilitar o serviço na inicialização
 ```
 
 ### INITRAMFS
@@ -198,139 +262,62 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 > .
 
 ```
-# mkinitcpio -p linux
+# mkinitcpio -p linux-lts
 	- recriar o initramfs
 ```
 
-### _BOOTCTL_<sup>[2](#2)</sup>
+### _GRUB-BIOS_<sup>[2](#2)</sup>
 
 ```
-# booctl --path=/boot$esp install
-	- instalar o bootctl
+# vim /etc/default/grub
+	- procurar e adicionar a linha abaixo
 ```
+>GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home  loglevel=3"
 
 ```
-# blkid -o export /dev/sda2 | grep -w UUID > /boot/loader/entries/arch.conf
-	- criar o arquivo "arch.conf"
-```
-
-```
-# vim /boot/loader/entries/arch.conf
-	- editar o arquivo criado anteriormente conforme o exemplo abaixo
-```
-> title archlinux<br>
-> linux /vmlinuz-linux<br>
-> initrd /initramfs-linux.img<br>
-> options cryptdevice=UUID=478d1dd9-39ab-4fde-b2b2-f60b6aa0752a:root resume=/dev/mapper/arch-swap root=/dev/mapper/arch-root rw<br>
-> <br>
-> 	- **"resume"** é responsável pela hibernação 
-
-```
-# vim /boot/loader/loader.conf
-	- editar o arquivo conforme o exemplo abaixo
-```
-> default arch<br>
-> timeout 3<br>
-> console-mode max<br>
-> editor no
-
-```
-# booctl update
-	- atualizar os arquivos de boot
-```
-
-### CONFIGURAÇÃO DE REDE
-
-```
-# echo "archerhost" > /etc/hostname
-	- configuração do hostname
-```
-
-```
-# vim /etc/hosts
-	- criar configuração do hosts 
-```
-> 127.0.0.1     localhost<br>
-> 1::           localhost<br>
-> 127.0.3.1     archerhost.local archerhost<br>
-    - adicionar ao arquivo '/etc/hosts'
-
-### CONEXÃO DE REDE
-
-#### conexão wired
-```
-# cat > /etc/systemd/network/wired.network << "EOF"
-[Match]
-Name=en*
-Name=eth*
-[Network]
-DHCP=yes
-[DHCP]
-RouteMetric=10
-EOF
-	- arquivo de configuração da rede wired
-```
-
-```
-# systemctl enable systemd-networkd.service
-	- habilitar o gerenciador de configurações de rede na inicialização
-```
-
-```
-# systemctl enable systemd-resolved.service
-	- habilitar resolução de nomes de rede na inicialização
-```
-
-#### conexão wireless
-```
-# cat > /etc/systemd/network/wireless.network << "EOF"
-[Match]
-Name=wlp*
-[Network]
-DHCP=yes
-[DHCP]
-RouteMetric=20
-EOF
-	- arquivo de configuração da rede wireless
-```
-
-```
-# systemctl enable systemd-networkd.service
-    	- habilitar o gerenciador de configurações de rede na inicialização
-```
-
-```
-# systemctl enable systemd-resolved.service
-	- habilitar resolução de nomes de rede na inicialização
-```
-
-```
-# wpa_passphrase ESSID PASSWD > /etc/wap_supplicant/wlp3s0.conf
-	- gerar o arquivo de configuração da interface wireless
-```
-
-```
-systemctl start wpa_supplicant@wlp3s0.service
-    - inicializar o 'wpa_supplicant'
-```
-
-```
-systemctl enable wpa_supplicant@wlp3s0.service
-    - ativar o 'wpa_supplicant' na inicialização
+# grub-install /dev/sda
+# grub-mkconfig -o /boot/grub/grub.cfg
+	- instalar o grub e carregar as configurações
 ```
 
 ### REINICIAR SISTEMA
 
 ```
 # exit
-# umount -R /mnt && swapoff /dev/sdX
+# umount -R /mnt && swapoff /dev/sda2
 # reboot
 ```
 
 ### PRIMEIRO LOGIN
 
+
+### CONEXÃO
+
+#### conexão wi-fi
 ```
-# ping -c3 archlinux.org
+$ nmcli device wifi list
+	--->lista as redes
+```
+```
+$ nmcli device wifi connect <SSID> password <SSID_password>
+	--->conecta a rede
+```
+```
+$ nmcli connection show
+	--->todas as redes conectadas
+```
+```
+$ nmcli device
+	--->status
+```
+```
+# ping archlinux.org
+	- checar conexão
+```
+
+#### conexão cabeada
+```
+# ping archlinux.org
 	- checar conexão
 ```
 
@@ -395,7 +382,7 @@ systemctl enable wpa_supplicant@wlp3s0.service
 	- instalando o xfce como desktop
 ```
 
-###_AUR_<sup>[6](#6)</sup> _TRIZEN_<sup>[7](#7)</sup>
+### _AUR_<sup>[6](#6)</sup> _TRIZEN_<sup>[7](#7)</sup>
 ```
 $ git clone https://aur.archlinux.org/trizen.git
 	- fazer o download do trizen para administração de pacotes AUR
@@ -407,7 +394,7 @@ $ makepkg -si
 	- instalar o Trizen
 ```
 
-###SNAP
+### SNAP
 ```
 $ git clone https://aur.archlinux.org/snapd.git
 	- download do Snap
@@ -429,27 +416,27 @@ $ makepkg -si
 	- criar link simbólico entre '/var/lib/snapd/snape /snap'
 ```
 
-###SEGURANÇA
+### SEGURANÇA
 ```
 # pacman -S nftables clamav seahorse kleopatra rkhunter
 ```
 
-###UTILITÁRIOS
+### UTILITÁRIOS
 ```
 # pacman -S nmap lsof usbctl opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
 ```
 
-###VIRTUALIZAÇÃO
+### VIRTUALIZAÇÃO
 ```
 # pacman -S wine
 ```
 
-###COMPARTILHAMENTO DE ARQUIVOS
-```
+### COMPARTILHAMENTO DE ARQUIVOS
+``` 
 # pacman -S transmission-gtk filezilla netcat wget git
 ```
 
-###NAVEGADORES
+### NAVEGADORES
 ```
 # pacman -S chromium firefox-i18n-pt-br links lynx
 
@@ -457,115 +444,115 @@ $ trizen -S tor-browser
     - gerenciador de arquivos AUR
 ```
 
-###EDITORES DE TEXTO
+### EDITORES DE TEXTO
 ```
-# pacman -S leafpad mousepad vim
+# pacman -S leafpad mousepad
 ```
 
-###TTF
+### TTF
 ```
 # pacman -S xorg-fonts-alias-cyrillic xorg-fonts-alias-misc xorg-fonts-misc xorg-fonts-type1 font-bh-ttf noto-fonts noto-fonts-extra sdl2_ttf ttf-bitstream-vera ttf-caladea ttf-carlito ttf-croscore ttf-dejavu ttf-hack ttf-junicode gnu-free-fonts ttf-linux-libertine perl-font-ttf ttf-anonymous-pro ttf-cormorant ttf-droid ttf-fantasque-sans-mono ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-ibm-plex ttf-inconsolata ttf-indic-otf ttf-ionicons ttf-jetbrains-mono ttf-joypixels ttf-linux-libertine-g ttf-nerd-fonts-symbols-mono ttf-opensans ttf-proggy-clean ttf-roboto ttf-roboto-mono ttf-ubuntu-font-family 
 
 $ trizen -S ttf-ms-fonts
 ```
 
-###GERENCIADORES DE ARQUIVOS
+### GERENCIADORES DE ARQUIVOS
 ```
 # pacman -S trash-cli catfish rclone rsync meld 
 ```
 
-###ARQUIVAMENTO
+### ARQUIVAMENTO
 ```
 # pacman -S xarchiver-gtk2 p7zip unzip unrar zip
 ```
 
-###MULTIMÍDIA E CODECS
+### MULTIMÍDIA E CODECS
 ```
 # pacman -S libdc1394 libdvdcss libgme vcdimager smbclient libnfs protobuf libmicrodns lua-socket live-media libdvdread libdvdnav zvbi libkate libtiger chromaprint lirc projectm libgoom2 ffmpeg schroedinger libtheora libvorbis libmpeg2 xine-lib libde265 xvidcore gst-libav inkscape wavpack jasper a52dec libmad libvpx geeqie libdca dav1d libdv faad2 x265 x264 faac aom flac lame libxv opus gimp
-
+ 
 $ trizen -S codecs64
 ```
 
-###AUDIO
+### AUDIO
 ```
 # pacman -S pulseaudio-alsa pavucontrol alsa-utils alsa-oss alsa-lib
 ```
 
-###VÍDEO
+### VÍDEO
 ```
 # pacman -S vlc
 ```
 
-###OFFICE
+### OFFICE
 ```
 # pacman -S libreoffice-still libreoffice-still-pt-br galculator-gtk2 retext xsane cups
 ```
 
-###CLIENTES EMAIL
+### CLIENTES EMAIL
 ```
 # pacman -S claws-mail mutt
 ```
 
-###LEITORES
+### LEITORES
 ```
 # pacman -S calibre mcomix xpdf
 ```
 
-###WEBCAM
+### WEBCAM
 ```
 # pacman -S cheese
 ```
 
-###IRC
+### IRC
 ```
 # pacman -S hexchat
 ```
 
-###ÁREA DE TRABALHO REMOTA
+### ÁREA DE TRABALHO REMOTA
 ```
 # pacman -S x11vnc
 
 $ trizen -S real-vnc-viewer
 ```
 
-###DESENVOLVIMENTO
+### DESENVOLVIMENTO
 ```
 # pacman -S tk tcl
 ```
 
-###MONITORES DE SISTEMA
+### MONITORES DE SISTEMA
 ```
 # pacman -S conky
 ```
 
-###INFORMAÇÕES DO SISTEMA
+### INFORMAÇÕES DO SISTEMA
 ```
 # pacman -S hwdetect neofetch hwinfo htop
 ```
 
-###LOG
+### LOG
 ```
 # pacman -S pacmanlogviewer
 ```
 
-###LIMPEZA
+### LIMPEZA
 ```
 # pacman -S bleachbit
 ```
 
-###AGENDADORES
+### AGENDADORES
 ```
 # pacman -S cronie
 ```
 
-###PERSONALIZAÇÃO
+### PERSONALIZAÇÃO
 ```
 # pacman -S archlinux-wallpaper capitaine-cursors xcursor-neutral papirus-icon-theme
 
 $ trizen -S numix-themes-archblue
 ```
 
-###GAMES
+### GAMES
 ```
 # pacman -S dwarffortress asciiportal stone-soup 0ad 0ad-data
 
@@ -582,7 +569,7 @@ $ snap install the-powder-toy
     - instalar The Powder Toy
 ```
 
-###LEITURA COMPLEMENTAR<br>
+### LEITURA COMPLEMENTAR<br>
 
 <a id="1" href="#"><sup>1</sup></a>
 [LUKS e LVM](https://williamcanin.me/blog/instalando-archlinux-com-criptografia-luks-e-lvm/)<br>
