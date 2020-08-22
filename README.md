@@ -1,10 +1,8 @@
 # 
 
-# 
-
 # <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
 
-# Minha Particular Instalação ArchLinux com BiosMBR, LUKS e Grub
+# Minha Particular Instalação ArchLinux com LUKS e Grub
 <a id="^top"></a>
 ### PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
@@ -32,9 +30,10 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # loadkeys br-abnt2
 	- layout do teclado
 ```
-## CONEXÃO
 
-#### conexão wireless
+## REALIZANDO CONEXÃO
+
+#### conexão wifi
 ```
 # iwctl
 [iwd]# help
@@ -43,25 +42,21 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 [iwd]# station wlan0 connect SSID
 	- para conexão wireless
 ```
-
-```
-# ping archlinux.org
-	- testar a conexão
-```
-
 #### conexão cabeada
 ```
 # systemctl status systemd-networkd.service
 	- para verificar conexão wired
 ```
-
 ```
 # ping archlinux.org
 	- testar a conexão
 ```
+```
+# modprobe -a dm-mod dm-crypt
+	- carregar módulos para criptografia
+```
 
 ### CRIANDO AS PARTIÇÕES
-
 ```
 # lsblk
 	- identificar o disco
@@ -79,12 +74,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 | sda2 | *GiB    | linux | /home    |
 
 ### _CRIPTOGRAFANDO_<sup>[1](#1)</sup> A PARTIÇÃO LINUX LVM
-
-```
-# modprobe -a dm-mod dm-crypt
-	- carregar módulos para criptografia
-```
-
 ```
 # cryptsetup -c aes-xts-plain64 -y -s 512 luksFormat /dev/sda2
 	- criptografar a partição '/dev/sda2'
@@ -124,7 +113,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ### FORMATANDO E MONTADO AS PARTIÇÕES
-
 ```
 # mkfs.ext4 /dev/mapper/arch-home
 # mount /dev/mapper/arch-home /mnt
@@ -152,7 +140,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ### INSTALAÇÃO INICIAL
-
 ```
 # pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware grub lvm2 vim
 	- instalar o sistema base
@@ -190,7 +177,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ### CONFIGURAÇÃO DE REDE
-
 ```
 # echo "archerhost" > /etc/hostname
 	- configuração do hostname
@@ -211,10 +197,10 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- aplicativos necessários para conexão cabeada ou wi-fi
 ```
 
-#### conexão wireless
+#### conexão wifi
 ```
-# systemctl disable dhcpcd.service 
-	- pode causar instabilidade na conexão wi-fi
+# systemctl disable dhcpcd.service
+	- desativar-lo pois ele pode causar instabilidade na conexão wi-fi
 ```
 
 ```
@@ -244,22 +230,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ### INITRAMFS
-
 ```
 # vim /etc/mkinitcpio.conf
 	- procurar e editar as seguintes linhas seguindo o exemplo abaixo
 ```
-> .<br>
-> .<br>
-> .<br>
-> MODULES=(***ext4***)<br>
-> .<br>
-> .<br>
-> .<br>
 > HOOKS=(...modconf block ***keymap encrypt lvm2 resume*** filesystems ...)<br>
-> .<br>
-> .<br>
-> .
 
 ```
 # mkinitcpio -p linux-lts
@@ -267,12 +242,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ### _GRUB-BIOS_<sup>[2](#2)</sup>
-
 ```
 # vim /etc/default/grub
 	- procurar e adicionar a linha abaixo
 ```
->GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home  loglevel=3"
+> GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home  loglevel=3"
 
 ```
 # grub-install /dev/sda
@@ -281,7 +255,6 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ```
 
 ### REINICIAR SISTEMA
-
 ```
 # exit
 # umount -R /mnt && swapoff /dev/sda2
@@ -290,25 +263,20 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ### PRIMEIRO LOGIN
 
-
 ### CONEXÃO
 
-#### conexão wi-fi
+#### conexão wifi
 ```
 $ nmcli device wifi list
-	--->lista as redes
+    - lista as redes
 ```
 ```
 $ nmcli device wifi connect <SSID> password <SSID_password>
-	--->conecta a rede
+	- conecta a rede
 ```
 ```
 $ nmcli connection show
-	--->todas as redes conectadas
-```
-```
-$ nmcli device
-	--->status
+	- todas as redes conectadas
 ```
 ```
 # ping archlinux.org
@@ -317,12 +285,15 @@ $ nmcli device
 
 #### conexão cabeada
 ```
+# systemctl status NetworkManager.service
+    - verificar conexão
+```
+```
 # ping archlinux.org
 	- checar conexão
 ```
 
 ### PACMAN.CONF
-
 ```
 # vim /etc/pacman.conf
 	- descomentar para adicionar o repositório multilib
@@ -342,7 +313,6 @@ $ nmcli device
 ```
 
 ### LOCALIZAÇÃO
-
 ```
 # vim /etc/locale.gen
     - descomentar a localidade para valores monetários regionais, formatos de hora e data, idiossincrasias alfabéticas e outros padrões específicos de localidade.
@@ -369,11 +339,9 @@ $ nmcli device
 ```
 
 ### AMBIENTE _DESKTOP_<sup>[3](#3)</sup>
-
 **_XORG_**<sup>[4](#4)</sup>
 ```
 # pacman -S xorg xf86-input-synaptics xf86-video-ati
-	- o básico para ter um desktop AMD
 ```
 
 **_XFCE4_**<sup>[5](#5)</sup>
@@ -432,7 +400,7 @@ $ makepkg -si
 ```
 
 ### COMPARTILHAMENTO DE ARQUIVOS
-``` 
+```
 # pacman -S transmission-gtk filezilla netcat wget git
 ```
 
@@ -446,7 +414,7 @@ $ trizen -S tor-browser
 
 ### EDITORES DE TEXTO
 ```
-# pacman -S leafpad mousepad
+# pacman -S leafpad mousepad vim
 ```
 
 ### TTF
@@ -469,7 +437,7 @@ $ trizen -S ttf-ms-fonts
 ### MULTIMÍDIA E CODECS
 ```
 # pacman -S libdc1394 libdvdcss libgme vcdimager smbclient libnfs protobuf libmicrodns lua-socket live-media libdvdread libdvdnav zvbi libkate libtiger chromaprint lirc projectm libgoom2 ffmpeg schroedinger libtheora libvorbis libmpeg2 xine-lib libde265 xvidcore gst-libav inkscape wavpack jasper a52dec libmad libvpx geeqie libdca dav1d libdv faad2 x265 x264 faac aom flac lame libxv opus gimp
- 
+
 $ trizen -S codecs64
 ```
 
@@ -557,18 +525,18 @@ $ trizen -S numix-themes-archblue
 # pacman -S dwarffortress asciiportal stone-soup 0ad 0ad-data
 
 $ snap install cncra
-    - instalar C&C: Red Alert
+    	- instalar C&C: Red Alert
 
 $ snap install cnctsun
-    - instalar C&C: Red Alert Tiberium Sun
+	- instalar C&C: Red Alert Tiberium Sun
 
 $ snap install cncra2yr
 	- instalar C&C: Red Alert 2 Yuri's Revenge (WINE)
 
 $ snap install the-powder-toy
-    - instalar The Powder Toy
+  	- instalar The Powder Toy
 ```
-
+ 
 ### LEITURA COMPLEMENTAR<br>
 
 <a id="1" href="#"><sup>1</sup></a>
