@@ -1,7 +1,6 @@
-
 # <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
-:orange_book:
-## Minha Instalação de uso pessoal do ArchLinux com LVM e Grub
+
+# Minha Instalação de uso pessoal do ArchLinux com LUKS e Grub
 <a id="^top"></a>
 ## PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
@@ -144,11 +143,12 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 # vim /etc/hosts
 	- criar configuração do hosts
-~~~
-> 127.0.0.1     localhost<br>
-> 1::           localhost<br>
-> 127.0.3.1     archerhost.local archerhost<br>
-~~~
+
+-----------------------------------------
+127.0.0.1     localhost
+1::           localhost
+127.0.3.1     archerhost.local archerhost
+-----------------------------------------
     - adicionar ao arquivo '/etc/hosts'
 ~~~
 ### CONEXÃO DE REDE
@@ -185,9 +185,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ~~~
 # vim /etc/mkinitcpio.conf
 	- procurar e editar as seguintes linhas seguindo o exemplo abaixo
-~~~
-> HOOKS=(...modconf block ***keymap keyboard encrypt lvm2 resume*** filesystems ...)<br>
-~~~
+
+----------------------------------------------------------------------------------
+HOOKS=(...modconf block ***keymap keyboard encrypt lvm2 resume*** filesystems ...)
+----------------------------------------------------------------------------------
+
 # mkinitcpio -p linux-lts
 	- recriar o initramfs
 ~~~
@@ -196,9 +198,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ~~~
 # vim /etc/default/grub
 	- procurar e adicionar a linha abaixo
-~~~
-> GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home resume=/dev/mapper/arch-swap loglevel=3"
-~~~
+
+-------------------------------------------------------------------------------------------------------------------------
+GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home resume=/dev/mapper/arch-swap loglevel=3"
+-------------------------------------------------------------------------------------------------------------------------
+
 # grub-install /dev/sda
 # grub-mkconfig -o /boot/grub/grub.cfg
 	- instalar o grub e carregar as configurações
@@ -243,10 +247,12 @@ $ ping archlinux.org
 ~~~
 # vim /etc/pacman.conf
 	- descomentar para adicionar o repositório multilib
-~~~
-> [multilib]<br>
-> Include = /etc/pacman.d/mirrorlist<br>
-~~~
+
+-------------------------------------------------------
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+-------------------------------------------------------
+
 # pacman -Syu
     - atualizar o archlinux e o 'multilib'
 ~~~
@@ -271,7 +277,7 @@ $ ping archlinux.org
 	- ajuste o relógio do sistema em '/etc/adjtime'
 ~~~
 
-### AMBIENTE _DESKTOP_<sup>[3](#3)</sup>
+### INTERFACE GRÁFICA
 
 **_XORG_**<sup>[4](#4)</sup>
 ~~~
@@ -312,7 +318,7 @@ $ makepkg -si
 
 ### SEGURANÇA
 ~~~
-# pacman -S nftables clamav seahorse kleopatra rkhunter
+# pacman -S nftables clamav seahorse openssh kleopatra rkhunter
 ~~~
 
 ### UTILITÁRIOS
@@ -339,7 +345,7 @@ $ trizen -S tor-browser
 
 ### EDITORES DE TEXTO
 ~~~
-# pacman -S leafpad mousepad vim
+# pacman -S leafpad mousepad
 ~~~
 
 ### TTF
@@ -461,19 +467,13 @@ $ snap install cncra2yr
 $ snap install the-powder-toy
   	- instalar The Powder Toy
 ~~~
-:metal:
 
 ### LEITURA COMPLEMENTAR<br>
 
 <a id="1" href="#"><sup>1</sup></a>
-[LUKS e LVM](https://williamcanin.me/blog/instalando-archlinux-com-criptografia-luks-e-lvm/)<br>
-[LUKS](https://www.redhat.com/sysadmin/disk-encryption-luks)<br>
-[DOCUMENTAÇÃO](https://github.com/libyal/libluksde/tree/master/documentation)<br>
-[DM-CRYPT](https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption)<br>
+[DM-CRYPT](https://wiki.archlinux.org/index.php/Dm-crypt_(Portugu%C3%AAs)/Device_encryption_(Portugu%C3%AAs))<br>
 
 <a id="2" href="#"><sup>2</sup></a>
-[SYSTEMBOOT](https://wiki.archlinux.org/index.php/systemd-boot)<br>
-[MANUAL](https://www.freedesktop.org/software/systemd/man/bootctl.html)<br>
 [GRUB](https://wiki.archlinux.org/index.php/GRUB_(Portugu%C3%AAs))
 
 <a id="3" href="#"><sup>3</sup></a>
