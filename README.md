@@ -25,7 +25,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ## REALIZANDO CONEXÃO
 
-#### conexão wifi
+#### wi-fi
 ~~~
 # iwctl
 [iwd]# help
@@ -38,7 +38,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- testar a conexão
 ~~~
 
-#### conexão cabeada
+#### ethernet
 ~~~
 # systemctl status systemd-networkd.service
 	- para verificar conexão wired
@@ -54,13 +54,14 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 # cfdisk /dev/sda
 	- criar uma nova tabela de partições vazia tipo DOS
+	- marcar '/dev/sda1' como bootável 
 ~~~
 ####  layout das partições necessárias
 
 | nome | tamanho | tipo | montagem |
 | :--: | :-----: | :--: | :------: |
-| sda1 | 512MiB  | linux | /boot    |
-| sda2 | *GiB    | linux | /home    |
+| sda1 | 512MiB  | linux | /mnt/boot    |
+| sda2 | *GiB    | linux | /mnt    |
 
 ### _CRIPTOGRAFANDO_<sup>[1](#1)</sup> A PARTIÇÃO LINUX LVM
 ~~~
@@ -84,7 +85,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- vgcreate <nome do grupo> <caminho do physical volume>
 
 # lvcreate -L 3g arch -n swap
-# lvcreate -l 100%FREE arch -n home
+# lvcreate -l 100%FREE arch -n root
 	- criar as logical volume (lv)
 	- lvcreate -L <tamanho |M|G> <nome do grupo> -n <nome do logical volume>
 
@@ -94,9 +95,9 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ### FORMATANDO E MONTADO AS PARTIÇÕES
 ~~~
-# mkfs.ext4 /dev/mapper/arch-home
-# mount /dev/mapper/arch-home /mnt
-	- formatar e montar a partição home
+# mkfs.ext4 /dev/mapper/arch-root
+# mount /dev/mapper/arch-root /mnt
+	- formatar e montar a partição root
 
 # mkdir /mnt/{boot,home}
 	- criar os diretórios boot e home em '/mnt'
@@ -154,10 +155,10 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 ### CONEXÃO DE REDE
 ~~~
 # pacman -S networkmanager wireless_tools nm-connection-editor network-manager-applet dhcpcd wpa_supplicant net-tools
-	- aplicativos necessários para conexão cabeada ou wi-fi
+	- aplicativos necessários para conexão ethernet ou wi-fi
 ~~~
 
-#### conexão wifi
+#### wi-fi
 ~~~
 # systemctl disable dhcpcd.service
 	- desativar-lo pois ele pode causar instabilidade na conexão wi-fi
@@ -169,7 +170,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- habilitar o serviço na inicialização
 ~~~
 
-#### conexão cabeada
+#### ethernet
 ~~~
 # systemctl enable dhcpcd.service 
 	- habilitar o serviço na inicialização
@@ -200,7 +201,7 @@ HOOKS=(...modconf block ***keymap keyboard encrypt lvm2 resume*** filesystems ..
 	- procurar e adicionar a linha abaixo
 
 -------------------------------------------------------------------------------------------------------------------------
-GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home resume=/dev/mapper/arch-swap loglevel=3"
+GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap loglevel=3"
 -------------------------------------------------------------------------------------------------------------------------
 
 # grub-install /dev/sda
@@ -215,14 +216,14 @@ GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/sda2:aux root=/dev/mapper/arch-home
 # reboot
 ~~~
 
-### PRIMEIRO LOGIN
+### PÓS INSTALAÇÃO
 
 ### CONEXÃO
 
-#### conexão wifi
+#### wi-fi
 ~~~
 $ nmcli device wifi list
-    - lista as redes
+	- lista as redes
 
 $ nmcli device wifi connect <SSID> password <SSID_password>
 	- conecta a rede
@@ -234,10 +235,10 @@ $ ping archlinux.org
 	- checar conexão
 ~~~
 
-#### conexão cabeada
+#### ethernet
 ~~~
 $ systemctl status NetworkManager.service
-    - verificar conexão
+	- verificar conexão
 
 $ ping archlinux.org
 	- checar conexão
@@ -254,16 +255,16 @@ Include = /etc/pacman.d/mirrorlist
 -------------------------------------------------------
 
 # pacman -Syu
-    - atualizar o archlinux e o 'multilib'
+	- atualizar o archlinux e o 'multilib'
 ~~~
 
 ### LOCALIZAÇÃO
 ~~~
 # vim /etc/locale.gen
-    - descomentar a localidade para valores monetários regionais, formatos de hora e data, idiossincrasias alfabéticas e outros padrões específicos de localidade.
+	- descomentar a localidade para valores monetários regionais, formatos de hora e data, idiossincrasias alfabéticas e outros padrões específicos de localidade.
 
 # locale-gen
-    - gerar localidade
+	- gerar localidade
 
 # echo "LANG=pt_BR.UTF-8" > /etc/locale.conf
 # export LANG=pt_BR.UTF-8
@@ -290,6 +291,26 @@ Include = /etc/pacman.d/mirrorlist
 	- instalando o xfce como desktop
 ~~~
 
+### SEGURANÇA
+~~~
+# pacman -S nftables clamav seahorse openssh kleopatra rkhunter
+~~~
+
+### UTILITÁRIOS
+~~~
+# pacman -S nmap lsof opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
+~~~
+
+### VIRTUALIZAÇÃO
+~~~
+# pacman -S wine
+~~~
+
+### COMPARTILHAMENTO DE ARQUIVOS
+~~~
+# pacman -S transmission-gtk filezilla netcat wget git
+~~~
+
 ### _AUR_<sup>[6](#6)</sup> _TRIZEN_<sup>[7](#7)</sup>
 ~~~
 $ git clone https://aur.archlinux.org/trizen.git
@@ -310,30 +331,10 @@ $ makepkg -si
 	- instalar o Snap
 
 # systemctl enable --now snapd.socket
-	- ativar soquete de comunicação princiapal do Snap
+	- ativar soquete de comunicação principal do Snap
 
 # ln -s /var/lib/snapd/snap /snap
 	- criar link simbólico entre '/var/lib/snapd/snape /snap'
-~~~
-
-### SEGURANÇA
-~~~
-# pacman -S nftables clamav seahorse openssh kleopatra rkhunter
-~~~
-
-### UTILITÁRIOS
-~~~
-# pacman -S nmap lsof opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
-~~~
-
-### VIRTUALIZAÇÃO
-~~~
-# pacman -S wine
-~~~
-
-### COMPARTILHAMENTO DE ARQUIVOS
-~~~
-# pacman -S transmission-gtk filezilla netcat wget git
 ~~~
 
 ### NAVEGADORES
@@ -462,7 +463,7 @@ $ snap install cnctsun
 	- instalar C&C: Red Alert Tiberium Sun
 
 $ snap install cncra2yr
-	- instalar C&C: Red Alert 2 Yuri's Revenge (WINE)
+	- instalar C&C: Red Alert 2 Yuri's Revenge
 
 $ snap install the-powder-toy
   	- instalar The Powder Toy
@@ -471,13 +472,13 @@ $ snap install the-powder-toy
 ### LEITURA COMPLEMENTAR<br>
 
 <a id="1" href="#"><sup>1</sup></a>
-[DM-CRYPT](https://wiki.archlinux.org/index.php/Dm-crypt_(Portugu%C3%AAs)/Device_encryption_(Portugu%C3%AAs))<br>
+[DM-CRYPT](https://wiki.archlinux.org/index.php/Dm-crypt_(Portugu%C3%AAs)/Device_encryption_(Portugu%C3%AAs))
 
 <a id="2" href="#"><sup>2</sup></a>
 [GRUB](https://wiki.archlinux.org/index.php/GRUB_(Portugu%C3%AAs))
 
 <a id="3" href="#"><sup>3</sup></a>
-[DESKTOP](https://wiki.archlinux.org/index.php/Desktop_environment_(Portugu%C3%AAs))
+[INTERFACE GRÁFICA](https://wiki.archlinux.org/index.php/Desktop_environment_(Portugu%C3%AAs))
 
 <a id="4" href="#"><sup>4</sup></a>
 [XORG](https://wiki.archlinux.org/index.php/Xorg_(Portugu%C3%AAs))
