@@ -384,7 +384,7 @@ $ trizen -S codecs64
 
 ### OFFICE
 ~~~
-# pacman -S libreoffice-still libreoffice-still-pt-br galculator-gtk2 retext xsane cups
+# pacman -S libreoffice-still libreoffice-still-pt-br galculator-gtk2 retext xsane pdfsam cups
 ~~~
 
 ### CLIENTES EMAIL
