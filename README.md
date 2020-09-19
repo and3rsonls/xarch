@@ -293,7 +293,7 @@ Include = /etc/pacman.d/mirrorlist
 
 ### SEGURANÇA
 ~~~
-# pacman -S nftables clamav seahorse openssh kleopatra rkhunter
+# pacman -S nftables clamav linssid seahorse openssh kleopatra rkhunter
 ~~~
 
 ### UTILITÁRIOS
