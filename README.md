@@ -182,13 +182,38 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- desabilitar o serviço na inicialização
 ~~~
 
+### LOCALIZAÇÃO
+~~~
+# vim /etc/locale.gen
+	- descomentar a localidade para valores monetários regionais, formatos de hora e data, idiossincrasias alfabéticas e outros padrões específicos de localidade.
+
+# locale-gen
+	- gerar localidade
+
+# echo "LANG=pt_BR.UTF-8" > /etc/locale.conf
+# export LANG=pt_BR.UTF-8
+	- idioma do sistema
+
+# rm -f /etc/localtime
+# ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+	- localidade do sistema
+
+# vim /etc/systemd/timesyncd.conf
+	- altere
+		NTP=pool.ntp.br
+		FallbackNTP=a.ntp.br b.ntp.br c.ntp.br
+
+# hwclock --systohc --utc
+	- ajuste o relógio do sistema em '/etc/adjtime'
+~~~
+
 ### INITRAMFS
 ~~~
 # vim /etc/mkinitcpio.conf
 	- procurar e editar as seguintes linhas seguindo o exemplo abaixo
 
 ----------------------------------------------------------------------------------
-HOOKS=(...modconf block keymap keyboard encrypt lvm2 resume filesystems ...)
+HOOKS=(... modconf block keymap keyboard encrypt lvm2 resume filesystems ...)
 ----------------------------------------------------------------------------------
 
 # mkinitcpio -p linux-lts
@@ -256,31 +281,6 @@ Include = /etc/pacman.d/mirrorlist
 
 # pacman -Syu
 	- atualizar o archlinux e o 'multilib'
-~~~
-
-### LOCALIZAÇÃO
-~~~
-# vim /etc/locale.gen
-	- descomentar a localidade para valores monetários regionais, formatos de hora e data, idiossincrasias alfabéticas e outros padrões específicos de localidade.
-
-# locale-gen
-	- gerar localidade
-
-# echo "LANG=pt_BR.UTF-8" > /etc/locale.conf
-# export LANG=pt_BR.UTF-8
-	- idioma do sistema
-
-# rm -f /etc/localtime
-# ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
-	- localidade do sistema
-
-# vim /etc/systemd/timesyncd.conf
-	- altere
-		NTP=pool.ntp.br
-		FallbackNTP=a.ntp.br b.ntp.br c.ntp.br
-
-# hwclock --systohc --utc
-	- ajuste o relógio do sistema em '/etc/adjtime'
 ~~~
 
 ### INTERFACE GRÁFICA
