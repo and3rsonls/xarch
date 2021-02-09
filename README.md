@@ -188,7 +188,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- procurar e editar as seguintes linhas seguindo o exemplo abaixo
 
 ----------------------------------------------------------------------------------
-HOOKS=(...modconf block ***keymap keyboard encrypt lvm2 resume*** filesystems ...)
+HOOKS=(...modconf block keymap keyboard encrypt lvm2 resume filesystems ...)
 ----------------------------------------------------------------------------------
 
 # mkinitcpio -p linux-lts
@@ -274,11 +274,21 @@ Include = /etc/pacman.d/mirrorlist
 # ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 	- localidade do sistema
 
+# vim /etc/systemd/timesyncd.conf
+	- altere
+		NTP=pool.ntp.br
+		FallbackNTP=a.ntp.br b.ntp.br c.ntp.br
+
 # hwclock --systohc --utc
 	- ajuste o relógio do sistema em '/etc/adjtime'
 ~~~
 
 ### INTERFACE GRÁFICA
+
+**qual drive de video instalar?**
+~~~
+# lspci | grep -e VGA -e 3D
+~~~
 
 **_XORG_**<sup>[4](#4)</sup>
 ~~~
@@ -385,7 +395,9 @@ $ trizen -S codecs64
 
 ### OFFICE
 ~~~
-# pacman -S libreoffice-still libreoffice-still-pt-br galculator-gtk2 retext xsane pdfsam cups
+# pacman -S libreoffice-still libreoffice-still-pt-br galculator-gtk2 retext xsane cups
+
+$ trizen -S pdfsam
 ~~~
 
 ### CLIENTES EMAIL
