@@ -285,7 +285,7 @@ Include = /etc/pacman.d/mirrorlist
 
 ### INTERFACE GRÁFICA
 
-**qual drive de video instalar?**
+**Qual driver de vídeo instalar?**
 ~~~
 # lspci | grep -e VGA -e 3D
 ~~~
