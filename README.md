@@ -8,13 +8,13 @@
 
 ~~~
 $ gpg --keyserver-options auto-key-retrieve --verify archlinux-versao-x86_64.iso.sig
-    - verificar assinatura da ISO
+	- verificar assinatura da ISO
 
 $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- verificar em um archlinux
 
 # dd bs=4M if=archlinux-versão-x86_64.iso of=/dev/sdX status=progress && sync
-    - gravar a ISO em um pendrive
+	- gravar a ISO em um pendrive
 ~~~
 
 ## INICIALIZAR A LIVE ISO
