@@ -78,6 +78,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- criar o physical volume (pv)
 
 # pvs
+# pvdisplay
 	- informações sobre o pv
 
 # vgcreate arch /dev/mapper/aux
@@ -90,6 +91,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 	- lvcreate -L <tamanho |M|G> <nome do grupo> -n <nome do logical volume>
 
 # lvs
+# pvdisplay
 	- informações sobre o logical volume (lv)
 ~~~
 
@@ -110,6 +112,12 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 # mount /dev/sda1 /mnt/boot
 	- montar a partição boot
+	
+# lsblk
+	- listando tipos de partições
+	
+# fdisk -l /dev/sdX
+	- listando partições
 ~~~
 
 ### INSTALAÇÃO INICIAL
