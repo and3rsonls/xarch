@@ -314,9 +314,9 @@ Include = /etc/pacman.d/mirrorlist
 # pacman -S nftables clamav linssid seahorse gpa openssh kleopatra rkhunter
 ~~~
 
-### UTILITÁRIOS
+### UTILIDADES
 ~~~
-# pacman -S nmap lsof opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity
+# pacman -S nmap lsof opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity dnsutils
 ~~~
 
 ### VIRTUALIZAÇÃO
