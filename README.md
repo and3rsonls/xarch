@@ -311,7 +311,7 @@ Include = /etc/pacman.d/mirrorlist
 
 ### SEGURANÇA
 ~~~
-# pacman -S nftables clamav linssid seahorse gpa openssh kleopatra rkhunter
+# pacman -S nftables clamav linssid seahorse gpa openssh sshguard kleopatra rkhunter
 ~~~
 
 ### UTILIDADES
