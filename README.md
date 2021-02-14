@@ -326,7 +326,7 @@ Include = /etc/pacman.d/mirrorlist
 
 ### COMPARTILHAMENTO DE ARQUIVOS
 ~~~
-# pacman -S transmission-gtk filezilla netcat wget git
+# pacman -S transmission-gtk filezilla netcat wget git github-cli
 ~~~
 
 ### _AUR_<sup>[6](#6)</sup> _TRIZEN_<sup>[7](#7)</sup>
