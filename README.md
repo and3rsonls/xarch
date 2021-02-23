@@ -357,9 +357,9 @@ $ makepkg -si
 
 ### NAVEGADORES
 ~~~
-# pacman -S chromium firefox-i18n-pt-br links lynx
+# pacman -S firefox-i18n-pt-br links lynx
 
-$ trizen -S tor-browser
+$ trizen -S tor-browser google-chrome
 ~~~
 
 ### EDITORES DE TEXTO
@@ -377,6 +377,8 @@ $ trizen -S ttf-ms-fonts
 ### GERENCIADORES DE ARQUIVOS
 ~~~
 # pacman -S trash-cli catfish rclone rsync meld 
+
+$ trizen -S timeshift
 ~~~
 
 ### ARQUIVAMENTO
