@@ -276,13 +276,9 @@ $ ping archlinux.org
 
 ### PACMAN.CONF
 ~~~
-# vim /etc/pacman.conf
-	- descomentar para adicionar o repositório multilib
-
--------------------------------------------------------
-[multilib]
-Include = /etc/pacman.d/mirrorlist
--------------------------------------------------------
+# sed -i '92s/.//' /etc/pacman.conf
+# sed -i '93s/.//' /etc/pacman.conf
+	- adicionar repositório multilib
 
 # pacman -Syu
 	- atualizar o archlinux e o 'multilib'
