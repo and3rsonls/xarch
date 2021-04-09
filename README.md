@@ -122,7 +122,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ### INSTALAÇÃO INICIAL
 ~~~
-# pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware grub lvm2 vim
+# pacstrap /mnt base base-devel linux-lts linux-lts-headers linux-firmware grub lvm2 vim git
 	- instalar o sistema base
 
 # genfstab -U /mnt > /mnt/etc/fstab
@@ -323,7 +323,7 @@ Include = /etc/pacman.d/mirrorlist
 
 ### COMPARTILHAMENTO DE ARQUIVOS
 ~~~
-# pacman -S transmission-gtk filezilla netcat wget git github-cli
+# pacman -S transmission-gtk filezilla netcat wget github-cli
 ~~~
 
 ### _AUR_<sup>[6](#6)</sup> _TRIZEN_<sup>[7](#7)</sup>
