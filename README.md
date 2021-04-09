@@ -141,7 +141,8 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # passwd archer
 	- adicionar um novo usuário e uma senha
 
-# vim /etc/sudoers
+# echo "archer ALL=(ALL) ALL" >> /etc/sudoers.d/archer
+# echo "archer ALL=(root) NOPASSWD: /usr/lib" >> /etc/sudoers.d/archer
 	- adicionar o usuário 'archer' ao sudoers
 ~~~
 
@@ -150,15 +151,11 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # echo "archerhost" > /etc/hostname
 	- configuração do hostname
 
-# vim /etc/hosts
+# echo "127.0.0.1     localhost" >> /etc/hosts
+# echo "1::           localhost" >> /etc/hosts
+# echo "127.0.3.1     archerhost.local	archerhost" >> /etc/hosts
 	- criar configuração do hosts
 
------------------------------------------
-127.0.0.1     localhost
-1::           localhost
-127.0.3.1     archerhost.local archerhost
------------------------------------------
-    - adicionar ao arquivo '/etc/hosts'
 ~~~
 ### CONEXÃO DE REDE
 ~~~
@@ -192,7 +189,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ### LOCALIZAÇÃO
 ~~~
-# vim /etc/locale.gen
+# sed -i '393s/.//' /etc/locale.gen
 	- descomentar a localidade para valores monetários regionais, formatos de hora e data, idiossincrasias alfabéticas e outros padrões específicos de localidade.
 
 # locale-gen
