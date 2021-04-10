@@ -280,6 +280,7 @@ $ ping archlinux.org
 ### PACMAN.CONF
 ~~~
 # sed -i '92,93s/.//' /etc/pacman.conf
+# sed -i '33,34,35,36s/.//' /etc/pacman.conf
 	- adicionar repositório multilib
 
 # pacman -Syu --noconfirm
