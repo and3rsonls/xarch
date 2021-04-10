@@ -145,6 +145,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # echo "archer ALL=(root) NOPASSWD: /usr/lib" >> /etc/sudoers.d/archer
 # chmod 0440 /etc/sudoers.d/archer
 # sed -i '98i\#includedir /etc/sudoers.d' /etc/sudoers
+# sed -i '83s//./' /etc/sudoers
 # visudo -c
 	- adicionar o usuário 'archer' ao sudoers
 ~~~
