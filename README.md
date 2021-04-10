@@ -143,7 +143,8 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 # echo "archer ALL=(ALL) ALL" >> /etc/sudoers.d/archer
 # echo "archer ALL=(root) NOPASSWD: /usr/lib" >> /etc/sudoers.d/archer
-# sed -i '97s/.//' /etc/sudoers
+# sed -i '98i\#includedir /etc/sudoers.d' /etc/sudoers
+# visudo -c
 	- adicionar o usuário 'archer' ao sudoers
 ~~~
 
@@ -277,8 +278,7 @@ $ ping archlinux.org
 
 ### PACMAN.CONF
 ~~~
-# sed -i '92s/.//' /etc/pacman.conf
-# sed -i '93s/.//' /etc/pacman.conf
+# sed -i '92,93s/.//' /etc/pacman.conf
 	- adicionar repositório multilib
 
 # pacman -Syu
