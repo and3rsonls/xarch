@@ -143,6 +143,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 # echo "archer ALL=(ALL) ALL" >> /etc/sudoers.d/archer
 # echo "archer ALL=(root) NOPASSWD: /usr/lib" >> /etc/sudoers.d/archer
+# chmod 0440 /etc/sudoers.d/archer
 # sed -i '98i\#includedir /etc/sudoers.d' /etc/sudoers
 # visudo -c
 	- adicionar o usuário 'archer' ao sudoers
@@ -205,10 +206,13 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 	- localidade do sistema
 
-# vim /etc/systemd/timesyncd.conf
-	- altere
-		NTP=pool.ntp.br
-		FallbackNTP=a.ntp.br b.ntp.br c.ntp.br
+# sed -i '14c\[TIME]' /etc/systemd/timesyncd.conf
+# sed -i '15c\NTP=pool.ntp.br' /etc/systemd/timesyncd.conf
+# sed -i '16c\FallbackNTP=a.ntp.br b.ntp.br c.ntp.br' /etc/systemd/timesyncd.conf
+# sed -i '17s/.//' /etc/systemd/timesyncd.conf
+# sed -i '18s/.//' /etc/systemd/timesyncd.conf
+# sed -i '19s/.//' /etc/systemd/timesyncd.conf
+	- cliente ntp
 
 # hwclock --systohc --utc
 	- ajuste o relógio do sistema em '/etc/adjtime'
@@ -216,12 +220,8 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ### INITRAMFS
 ~~~
-# vim /etc/mkinitcpio.conf
-	- procurar e editar as seguintes linhas seguindo o exemplo abaixo
-
-----------------------------------------------------------------------------------
-HOOKS=(... modconf block keymap keyboard encrypt lvm2 resume filesystems ...)
-----------------------------------------------------------------------------------
+# sed -i '52c\HOOKS=(base udev resume autodetect modconf block lvm2 keyboard keymap filesystems fsck)' /etc/mkinitcpio.conf
+	- editar mkinitcpio.conf
 
 # mkinitcpio -p linux-lts
 	- recriar o initramfs
