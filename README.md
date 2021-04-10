@@ -282,7 +282,7 @@ $ ping archlinux.org
 # sed -i '92,93s/.//' /etc/pacman.conf
 	- adicionar repositório multilib
 
-# pacman -Syu
+# pacman -Syu --noconfirm
 	- atualizar o archlinux e o 'multilib'
 ~~~
 
