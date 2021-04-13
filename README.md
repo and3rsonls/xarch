@@ -213,6 +213,8 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 # sed -i '17s/.//' /etc/systemd/timesyncd.conf
 # sed -i '18s/.//' /etc/systemd/timesyncd.conf
 # sed -i '19s/.//' /etc/systemd/timesyncd.conf
+# timedatectl set-ntp true
+# timedatectl set-timezone "America/Sao_Paulo"
 	- cliente ntp
 
 # hwclock --systohc --utc
