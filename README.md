@@ -417,6 +417,8 @@ $ trizen -S pdfsam
 ### LEITORES
 ~~~
 # pacman -S calibre mcomix xpdf
+
+$ trizen -S rss2email
 ~~~
 
 ### WEBCAM
