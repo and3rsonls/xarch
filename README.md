@@ -363,7 +363,7 @@ $ trizen -S tor-browser google-chrome
 
 ### EDITORES DE TEXTO
 ~~~
-# pacman -S leafpad mousepad
+# pacman -S leafpad xed mousepad
 ~~~
 
 ### TTF
