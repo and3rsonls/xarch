@@ -392,9 +392,9 @@ $ trizen -S timeshift
 $ trizen -S codecs64
 ~~~
 
-### AUDIO
+### AUDIO PIPEWIRE
 ~~~
-# pacman -S pulseaudio-alsa pavucontrol alsa-utils alsa-oss alsa-lib
+# pacman -S xdg-desktop-portal-gtk archlinux-xdg-menu gst-plugin-pipewire libpipewire02 pipewire pipewire-alsa pipewire-docs pipewire-jack pipewire-media-session pipewire-pulse pulseeffects wireplumber
 ~~~
 
 ### VÍDEO
