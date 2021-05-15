@@ -314,7 +314,7 @@ $ ping archlinux.org
 
 ### UTILIDADES
 ~~~
-# pacman -S nmap lsof opencl-mesa acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity dnsutils nyx
+# pacman -S nmap lsof opencl-mesa tree acpid acpi llvm numlockx ethtool dialog gparted gpart redshift exfat-utils reiserfsprogs nilfs-utils f2fs-tools xfsprogs jfsutils ntfs-3g mtools polkit iputils gvfs ntp wol psutils t1utils usbutils baobab zenity dnsutils nyx
 ~~~
 
 ### VIRTUALIZAÇÃO
