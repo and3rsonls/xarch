@@ -517,7 +517,7 @@ $ snap install the-powder-toy
 
 [^top](#top)
 
-<p align="center"><span style="font-size:10px" >Copyright © Judd Vinet and Aaron Griffin.</span></p>
+<p align="center"><span style="font-size:10px" >Copyright © 2002-2021 Judd Vinet, Aaron Griffin and Levente Polyák.</span></p>
 
 <p align="center"><span style="font-size:10px" >The Arch Linux name and logo are recognized trademarks. Some rights reserved.</span></p>
 
