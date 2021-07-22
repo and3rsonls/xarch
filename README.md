@@ -223,7 +223,7 @@ $ pacman-key -v archlinux-versão-x86_64.iso.sig
 
 ### INITRAMFS
 ~~~
-# sed -i '52c\HOOKS=(base udev resume autodetect modconf block lvm2 keyboard keymap filesystems fsck)' /etc/mkinitcpio.conf
+# sed -i '52c\HOOKS=(base udev resume autodetect modconf block encrypt lvm2 keyboard keymap filesystems fsck)' /etc/mkinitcpio.conf
 	- editar mkinitcpio.conf
 
 # mkinitcpio -p linux-lts
