@@ -1,6 +1,6 @@
 # <p align="center"><img src="https://i.imgur.com/UjnRFbR.png" width="500"/></p>
 
-# Minha Instalação de uso pessoal do ArchLinux com LUKS e Grub
+# Minha Instalação de uso pessoal do ArchLinux com LUKS, LVM e Grub.
 <a id="^top"></a>
 ## PREPARANDO A ISO
 > - link para download do archLinux iso e pgp<br>
